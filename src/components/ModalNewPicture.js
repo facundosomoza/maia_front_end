@@ -96,7 +96,13 @@ export default function ModalNewPicture({
       console.log("soy value");
       const formData = new FormData();
 
-      //formData.append("file", selectedFile);
+      console.log({ selectedFiles });
+
+      selectedFiles.forEach(({ file }, i) => {
+        console.log(file);
+        formData.append(`file${i + 1}`, file);
+      });
+
       formData.append("newName", newName);
       formData.append("newPrice", newPrice);
       formData.append("newDescription", newDescription);
