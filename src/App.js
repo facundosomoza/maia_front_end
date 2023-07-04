@@ -10,6 +10,7 @@ import NewCustomer from "./components/NewCustomer";
 import Details from "./components/Details";
 import CheckOut from "./components/CheckOut";
 import CartDetail from "./components/CartDetail";
+import ForgotPassword from "./components/ForgotPassword";
 
 import { Switch, Route } from "react-router-dom";
 import AppContextProvider from "./contexts/appContext";
@@ -36,8 +37,8 @@ function App() {
             <Contact></Contact>
           </Route>
 
-          <Route path="/youraccount">
-            <YourAccount></YourAccount>
+          <Route path="/forgot-password">
+            <ForgotPassword />
           </Route>
 
           <Route path="/newcustomer">
@@ -54,6 +55,10 @@ function App() {
 
           <Route path="/cartdetail">
             <CartDetail />
+          </Route>
+
+          <Route path="/youraccount">
+            <YourAccount></YourAccount>
           </Route>
         </Switch>
       </AppContextProvider>

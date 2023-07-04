@@ -20,13 +20,15 @@ const Details = () => {
 
   const picture = location.state;
 
+  const sold = picture.sold;
+
   console.log(picture);
 
   const pictureSelected = context.checkPictureSelected(picture.id);
 
   return (
     <Container fluid>
-      <Row>
+      <Row className="mt-4">
         <Col xs={12} md={8}>
           <Carousel
             interval={null}
@@ -86,11 +88,13 @@ const Details = () => {
                 </Button>
               </>
             ) : (
-              <Button
-                onClick={() => context.handleAddToCart(picture, "portfolio")}
-              >
-                Add to Cart
-              </Button>
+              !picture.sold && (
+                <Button
+                  onClick={() => context.handleAddToCart(picture, "portfolio")}
+                >
+                  Add to Cart
+                </Button>
+              )
             )}
           </div>
         </Col>

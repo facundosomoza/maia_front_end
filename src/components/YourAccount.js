@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-import { NavLink, useHistory, useLocation } from "react-router-dom";
+import { NavLink, useHistory, useLocation, Link } from "react-router-dom";
 
 import { appContext } from "../contexts/appContext";
 
@@ -87,11 +87,11 @@ const YourAccount = () => {
   };
 
   return (
-    <Container>
+    <Container className="d-flex align-items-center justify-content-center mt-5">
       {context.yourAccount === true ? (
         <Row>
-          <h1>You must be logged in to buy or add products to the cart</h1>
-          <Col>
+          <h1>You must be logged in to purchase or add products to cart</h1>
+          <Col className="d-flex justify-content-center">
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>Existing Customer</Card.Title>
@@ -101,6 +101,7 @@ const YourAccount = () => {
                       <Form.Label>Email address</Form.Label>
                       <Form.Control type="text" onChange={handleEmailEx} />
                     </Form.Group>
+                    {emailEx ? "" : message}
                     <Form.Group>
                       <Form.Label>Password</Form.Label>
                       <Form.Control
@@ -116,9 +117,9 @@ const YourAccount = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col className="d-flex justify-content-center">
             <Card style={{ width: "18rem" }}>
-              <Card.Body>
+              <Card.Body className="d-flex flex-column justify-content-center my-auto">
                 <Card.Title>New Customer</Card.Title>
                 <NavLink to="/newcustomer">JOIN</NavLink>
                 <Card.Text>Create your account</Card.Text>
@@ -128,7 +129,7 @@ const YourAccount = () => {
         </Row>
       ) : (
         <Row>
-          <Col>
+          <Col className="justify-content-center">
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>Existing Customer</Card.Title>
@@ -145,6 +146,7 @@ const YourAccount = () => {
                         onChange={handlePasswordEx}
                       />
                     </Form.Group>
+                    <Link to="/forgot-password">Forgotten Your Password</Link>
                   </Form>
                 </Card.Text>
                 <Button variant="primary" onClick={handleContinue}>
@@ -155,7 +157,7 @@ const YourAccount = () => {
           </Col>
           <Col>
             <Card style={{ width: "18rem" }}>
-              <Card.Body>
+              <Card.Body className="d-flex flex-column justify-content-center my-auto">
                 <Card.Title>New Customer</Card.Title>
                 <NavLink to="/newcustomer">JOIN</NavLink>
                 <Card.Text>Create your account</Card.Text>

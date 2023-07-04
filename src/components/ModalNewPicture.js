@@ -4,6 +4,7 @@ import FileRowImage from "./FileRowImage";
 import { Button, Modal, Form, Row, Col, Image } from "react-bootstrap";
 
 import { appContext } from "../contexts/appContext";
+import Swal from "sweetalert2";
 
 export default function ModalNewPicture({
   show,
@@ -14,6 +15,8 @@ export default function ModalNewPicture({
   const [newName, setNewName] = useState();
   const [newPrice, setNewPrice] = useState();
   const [newDescription, setNewDescription] = useState();
+
+  const [message, setMessage] = useState();
 
   const context = useContext(appContext);
 
@@ -34,6 +37,7 @@ export default function ModalNewPicture({
           id: img.id,
           file: "",
           image: urlPicture + img.file_image,
+          order: img.order_file,
         };
 
         return newImage;
@@ -49,10 +53,10 @@ export default function ModalNewPicture({
       setNewPrice("");
       setNewDescription("");
       setSelectedFiles([
-        { file: "", image: "" },
-        { file: "", image: "" },
-        { file: "", image: "" },
-        { file: "", image: "" },
+        { file: "", image: "", order: 1 },
+        { file: "", image: "", order: 2 },
+        { file: "", image: "", order: 3 },
+        { file: "", image: "", order: 4 },
       ]);
       //setPreviewImage("");
     }
@@ -75,70 +79,107 @@ export default function ModalNewPicture({
     setNewDescription(event.target.value);
   };
 
-  const handleNewSave = async () => {
-    console.log({ newPrice });
+  const cmpOrder = (order1, order2) => {
+    return order1 - order2;
+  };
 
+  const validateOrder = () => {
+    const orders = selectedFiles.map(({ order }) => parseInt(order));
+
+    const filteredOrders = orders
+      .sort(cmpOrder)
+      .filter((order, index) => order === index + 1);
+
+    return filteredOrders.length === 4;
+  };
+
+  const handleNewSave = async () => {
     console.log({ selectedFiles });
 
-    let value = true;
+    if (validateOrder()) {
+      let value = true;
 
-    if (newName.trim().length === 0) {
-      value = false;
-    }
-
-    if (("" + newPrice).trim().length === 0) {
-      value = false;
-    }
-    if (newDescription.trim().length === 0) {
-      value = false;
-    }
-    if (value) {
-      console.log("soy value");
-      const formData = new FormData();
-
-      console.log({ selectedFiles });
-
-      selectedFiles.forEach(({ file }, i) => {
-        console.log(file);
-        formData.append(`file${i + 1}`, file);
-      });
-
-      formData.append("newName", newName);
-      formData.append("newPrice", newPrice);
-      formData.append("newDescription", newDescription);
-
-      console.log(formData);
-
-      //formData.append("dataNewPicture", JSON.stringify(dataNewPicture));
-
-      try {
-        if (buttonModal === "new") {
-          const url = "http://localhost:8001/picturesart";
-
-          const response = await fetch(url, {
-            method: "post",
-            body: formData,
-            credentials: "include",
-          });
-          console.log(response);
-        } else {
-          const url = `http://localhost:8001/picturesart/${modalInfo.id}`;
-
-          const response = await fetch(url, {
-            method: "put",
-            body: formData,
-
-            credentials: "include",
-          });
-          console.log("soy edit 2");
-
-          console.log(response);
-        }
-        console.log("soy edit");
-        handleClose();
-      } catch (err) {
-        console.log("error");
+      if (newName.trim().length === 0) {
+        setMessage("You must complete the field");
+        value = false;
       }
+
+      if (("" + newPrice).trim().length === 0) {
+        setMessage("You must complete the field");
+        value = false;
+      }
+      if (newDescription.trim().length === 0) {
+        setMessage("You must complete the field");
+        value = false;
+      }
+
+      const allFilesSelected = selectedFiles.every(({ file, image }) =>
+        file || image ? true : false
+      );
+
+      if (!allFilesSelected) {
+        value = false;
+      }
+
+      if (value) {
+        console.log("soy value");
+        const formData = new FormData();
+
+        console.log({ selectedFiles });
+
+        selectedFiles.forEach(({ file }, i) => {
+          console.log(file);
+          formData.append(`file${i + 1}`, file);
+        });
+
+        selectedFiles.forEach(({ image }, i) => {
+          console.log(image);
+          formData.append(`originalFile${i + 1}`, image);
+        });
+
+        selectedFiles.forEach(({ order, id }, i) => {
+          console.log(`order_${id ? id : i + 1}`, parseInt(order));
+
+          formData.append(`order_${id ? id : i + 1}`, parseInt(order));
+        });
+
+        formData.append("newName", newName);
+        formData.append("newPrice", newPrice);
+        formData.append("newDescription", newDescription);
+
+        console.log(formData);
+
+        try {
+          if (buttonModal === "new") {
+            const url = "http://localhost:8001/picturesart";
+
+            const response = await fetch(url, {
+              method: "post",
+              body: formData,
+              credentials: "include",
+            });
+            console.log(response);
+          } else {
+            const url = `http://localhost:8001/picturesart/${modalInfo.id}`;
+
+            const response = await fetch(url, {
+              method: "put",
+              body: formData,
+
+              credentials: "include",
+            });
+            console.log("soy edit 2");
+
+            console.log(response);
+          }
+          console.log("soy edit");
+          handleClose();
+        } catch (err) {
+          console.log("error");
+        }
+      }
+    } else {
+      Swal.fire({ text: "Invalid Order", icon: "error" });
     }
   };
 
@@ -146,6 +187,16 @@ export default function ModalNewPicture({
     const newSelectedFiles = [...selectedFiles];
 
     newSelectedFiles[index].file = selectedFile;
+
+    setSelectedFiles(newSelectedFiles);
+  };
+
+  const handleFileOrderChange = (index, newOrder) => {
+    console.log("Cambio la imagen de la posicion", index, "orden", newOrder);
+
+    const newSelectedFiles = [...selectedFiles];
+
+    newSelectedFiles[index].order = newOrder;
 
     setSelectedFiles(newSelectedFiles);
   };
@@ -170,6 +221,7 @@ export default function ModalNewPicture({
               value={newName}
               onChange={handleNewName}
             />
+            {newName ? "" : message}
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Price</Form.Label>
@@ -178,6 +230,7 @@ export default function ModalNewPicture({
               value={newPrice}
               onChange={handleNewPrice}
             />
+            {newPrice ? "" : message}
           </Form.Group>
 
           {selectedFiles.map((selectedFile, i) => (
@@ -186,6 +239,7 @@ export default function ModalNewPicture({
               index={i}
               data={selectedFile}
               onChangePicture={handleChangePicture}
+              onOrderChange={handleFileOrderChange}
             />
           ))}
 
@@ -198,6 +252,7 @@ export default function ModalNewPicture({
               value={newDescription}
               onChange={handleNewDescription}
             />
+            {newDescription ? "" : message}
           </Form.Group>
         </Form>
       </Modal.Body>
