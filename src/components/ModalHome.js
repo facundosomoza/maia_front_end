@@ -1,62 +1,66 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col, Image, Figure } from "react-bootstrap";
 
-const ModalHome = ({
-  showUpdateModal,
-  handleClose,
-  handleImageChange,
-  imageId,
-}) => {
-  const [file, setFile] = useState(null);
+const ModalHome = ({ showUpdateModal, handleClose }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleImageChange = (event) => {
+    setSelectedImage(event.target.files[0]);
   };
 
-  const handleUploadImage = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("image", file);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-      const response = await fetch(
-        `http://localhost:8001/admin-pictures/admin-pictures/${imageId}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+    if (!selectedImage) {
+      // Si no se ha seleccionado ninguna imagen, puedes mostrar un mensaje de error
+      console.log("It has not selected any image");
+      return;
+    }
+
+    try {
+      // Crea una instancia de FormData para enviar la imagen al backend
+      const formData = new FormData();
+      formData.append("image", selectedImage);
+
+      // Realiza una solicitud POST al backend para subir la imagen
+      const response = await fetch("http://localhost:8001/admin-pictures", {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
-        const data = await response.json();
-        handleImageChange(data.imageUrl);
+        // La imagen se subió exitosamente, cierra el modal y actualiza la página si es necesario
         handleClose();
       } else {
-        console.error("Error al actualizar la imagen");
+        // Si la respuesta no fue exitosa, muestra un mensaje de error o maneja el error según tus necesidades
+        console.error("Error al subir la imagen");
       }
     } catch (error) {
-      console.error("Error al actualizar la imagen:", error);
+      // Si se produjo un error en la solicitud, muestra un mensaje de error o maneja el error según tus necesidades
+      console.error("Error al realizar la solicitud:", error);
     }
   };
 
   return (
-    <>
-      <Modal show={showUpdateModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Update Image</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <input type="file" onChange={handleFileChange} />
-        </Modal.Body>
-        <Modal.Footer>
+    <Modal show={showUpdateModal} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Update Image</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Group controlId="imageUpload">
+            <Form.Label>Select an Image</Form.Label>
+            <Form.Control type="file" onChange={handleImageChange} />
+          </Form.Group>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleUploadImage}>
+          <Button variant="primary" type="submit">
             Save Changes
           </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

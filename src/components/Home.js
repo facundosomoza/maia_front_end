@@ -7,15 +7,32 @@ import Button from "react-bootstrap/Button";
 import UpdateImageHome from "./UpdateImageHome";
 import ModalHome from "./ModalHome";
 const Home = () => {
+  const context = useContext(appContext);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [homeImage, setHomeImage] = useState("");
 
-  const [imageId, setImageId] = useState("");
+  const [isImageLoaded, setImageLoaded] = useState(false);
 
-  const PROFILE_IMAGE_URL = "http://localhost:8001/images/profile/img3.jpg";
+  useEffect(() => {
+    const fetchHomeImage = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8001/admin-pictures/active-background"
+        );
+        const data = await response.json();
 
-  const context = useContext(appContext);
+        console.log("DEFAULT BKG", data);
+
+        setHomeImage(data.image);
+        setImageLoaded(true);
+      } catch (error) {
+        console.error("error to get the main picture");
+      }
+    };
+    fetchHomeImage();
+  }, []);
 
   const handleUpdateImage = () => {
     setShowUpdateModal(true);
@@ -26,32 +43,30 @@ const Home = () => {
     setShowUpdateModal(false);
   };
 
-  const handleImageChange = (newImageUrl) => {
-    setImageUrl(newImageUrl);
-  };
-
-  if (!imageUrl) {
-    return null;
-  }
-
   return (
-    <div>
-      {context.user && context.user.email === "maia@gmail.com" && (
-        <UpdateImageHome
-          handleUpdateImage={handleUpdateImage}
-        ></UpdateImageHome>
-      )}
-      <ModalHome
-        showUpdateModal={showUpdateModal}
-        handleClose={handleClose}
-        handleImageChange={handleImageChange}
-        imageId={imageId}
-      ></ModalHome>
-
-      <div>
-        <img src={imageUrl} alt="Profile" />
-      </div>
-    </div>
+    <Container>
+      <Row>
+        <Col className="text-center">
+          {isImageLoaded ? (
+            <img
+              src={`http://localhost:8001/images/profile/${homeImage}`}
+              alt="Home"
+            />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </Col>
+      </Row>
+      <Row>
+        <Col className="text-center">
+          {context.user && context.user.email === "maia@gmail.com" && (
+            <UpdateImageHome handleUpdateImage={handleUpdateImage} />
+          )}
+        </Col>
+      </Row>
+      <ModalHome showUpdateModal={showUpdateModal} handleClose={handleClose} />
+    </Container>
   );
 };
+
 export default Home;
