@@ -44,6 +44,7 @@ const Home = () => {
   };
 
   const handleClose = () => {
+    console.log("soy handleclose");
     setShowUpdateModal(false);
   };
 
