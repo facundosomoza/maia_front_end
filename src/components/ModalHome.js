@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Row, Col, Image, Figure } from "react-bootstrap";
 
-const ModalHome = ({ showUpdateModal, handleClose }) => {
+import { getConfig } from "../utils/config";
+
+const ModalHome = ({ showUpdateModal, handleClose, reloadHomeImage }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageChange = (event) => {
@@ -23,13 +25,17 @@ const ModalHome = ({ showUpdateModal, handleClose }) => {
       formData.append("image", selectedImage);
 
       // Realiza una solicitud POST al backend para subir la imagen
-      const response = await fetch("http://localhost:8001/admin-pictures", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${getConfig().URL_BASE_BACKEND}/admin-pictures`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         // La imagen se subió exitosamente, cierra el modal y actualiza la página si es necesario
+        reloadHomeImage();
         handleClose();
       } else {
         // Si la respuesta no fue exitosa, muestra un mensaje de error o maneja el error según tus necesidades

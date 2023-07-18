@@ -6,6 +6,9 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import UpdateImageHome from "./UpdateImageHome";
 import ModalHome from "./ModalHome";
+
+import { getConfig } from "../utils/config";
+
 const Home = () => {
   const context = useContext(appContext);
 
@@ -15,22 +18,23 @@ const Home = () => {
 
   const [isImageLoaded, setImageLoaded] = useState(false);
 
+  const fetchHomeImage = async () => {
+    try {
+      const response = await fetch(
+        `${getConfig().URL_BASE_BACKEND}/admin-pictures/active-background`
+      );
+      const data = await response.json();
+
+      console.log("DEFAULT BKG", data);
+
+      setHomeImage(data.image);
+      setImageLoaded(true);
+    } catch (error) {
+      console.error("error to get the main picture");
+    }
+  };
+
   useEffect(() => {
-    const fetchHomeImage = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8001/admin-pictures/active-background"
-        );
-        const data = await response.json();
-
-        console.log("DEFAULT BKG", data);
-
-        setHomeImage(data.image);
-        setImageLoaded(true);
-      } catch (error) {
-        console.error("error to get the main picture");
-      }
-    };
     fetchHomeImage();
   }, []);
 
@@ -47,9 +51,19 @@ const Home = () => {
     <Container>
       <Row>
         <Col className="text-center">
+          {context.user && context.user.email === "maia@gmail.com" && (
+            <UpdateImageHome handleUpdateImage={handleUpdateImage} />
+          )}
+        </Col>
+      </Row>
+      <Row>
+        <Col className="text-center">
           {isImageLoaded ? (
             <img
-              src={`http://localhost:8001/images/profile/${homeImage}`}
+              className="img-fluid img-thumbnail w-75"
+              src={`${
+                getConfig().URL_BASE_BACKEND
+              }/images/profile/${homeImage}`}
               alt="Home"
             />
           ) : (
@@ -57,14 +71,12 @@ const Home = () => {
           )}
         </Col>
       </Row>
-      <Row>
-        <Col className="text-center">
-          {context.user && context.user.email === "maia@gmail.com" && (
-            <UpdateImageHome handleUpdateImage={handleUpdateImage} />
-          )}
-        </Col>
-      </Row>
-      <ModalHome showUpdateModal={showUpdateModal} handleClose={handleClose} />
+
+      <ModalHome
+        showUpdateModal={showUpdateModal}
+        handleClose={handleClose}
+        reloadHomeImage={fetchHomeImage}
+      />
     </Container>
   );
 };

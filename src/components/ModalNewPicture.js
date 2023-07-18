@@ -6,6 +6,8 @@ import { Button, Modal, Form, Row, Col, Image } from "react-bootstrap";
 import { appContext } from "../contexts/appContext";
 import Swal from "sweetalert2";
 
+import { getConfig } from "../utils/config";
+
 export default function ModalNewPicture({
   show,
   handleClose,
@@ -151,7 +153,7 @@ export default function ModalNewPicture({
 
         try {
           if (buttonModal === "new") {
-            const url = "http://localhost:8001/picturesart";
+            const url = `${getConfig().URL_BASE_BACKEND}/picturesart`;
 
             const response = await fetch(url, {
               method: "post",

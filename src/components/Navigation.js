@@ -9,6 +9,8 @@ import { NavLink, useHistory } from "react-router-dom";
 
 import { appContext } from "../contexts/appContext";
 
+import { getConfig } from "../utils/config";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,7 +23,7 @@ const Navigation = () => {
     context.setCart([]);
     context.checkPictureSelected([]);
 
-    const url = "http://localhost:8001/auth/logout";
+    const url = `${getConfig().URL_BASE_BACKEND}/auth/logout`;
 
     const response = await fetch(url, {
       method: "delete",
@@ -38,7 +40,7 @@ const Navigation = () => {
   };
 
   const checkLogged = async () => {
-    const url = "http://localhost:8001/auth/check_logged";
+    const url = `${getConfig().URL_BASE_BACKEND}/auth/check_logged`;
 
     const response = await fetch(url, {
       method: "get",

@@ -57,33 +57,36 @@ const Details = () => {
               </svg>
             }
           >
-            {picture.images.map((pict) => {
-              return (
-                <Carousel.Item>
-                  <img
-                    className=""
-                    src={`${IMAGES_BASE_URL}${pict.file_image}`}
-                    alt="First slide"
-                  />
-
-                  <Carousel.Caption>
-                    <h3>{picture.name}</h3>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              );
-            })}
+            {picture.images.map((pict) => (
+              <Carousel.Item>
+                <img
+                  className=""
+                  src={`${IMAGES_BASE_URL}${pict.file_image}`}
+                  alt="First slide"
+                />
+              </Carousel.Item>
+            ))}
           </Carousel>
         </Col>
 
         <Col xs={12} md={4}>
           <div>
+            <Form.Text>{picture.name}</Form.Text>
             <Form.Text>{picture.description}</Form.Text>
             <Form.Text>{picture.price}</Form.Text>
-
-            {pictureSelected ? (
+            {context.user && context.user.email === "maia@gmail.com" ? (
+              ""
+            ) : pictureSelected ? (
               <>
                 <span>Picture added to the cart</span>
-                <Button onClick={() => context.handleDelete(picture.id)}>
+                <Button
+                  onClick={() =>
+                    context.handleDelete({
+                      id_obra_arte: picture.id,
+                      id_usuario: context.user.userId,
+                    })
+                  }
+                >
                   Delete
                 </Button>
               </>

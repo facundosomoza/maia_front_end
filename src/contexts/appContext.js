@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 
+import { getConfig } from "../utils/config";
+
 export const appContext = React.createContext();
 
 const AppContextProvider = ({ children }) => {
@@ -79,7 +81,9 @@ const AppContextProvider = ({ children }) => {
 
   const handleDelete = async (info) => {
     console.log("INFO...", info);
-    const url = `http://localhost:8001/cart/${info.id_obra_arte}/${info.id_usuario}`;
+    const url = `${getConfig().URL_BASE_BACKEND}/cart/${info.id_obra_arte}/${
+      info.id_usuario
+    }`;
 
     const response = await fetch(url, {
       method: "delete",

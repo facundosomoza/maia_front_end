@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, Form, Row, Col, Image, Figure } from "react-bootstrap";
 import Swal from "sweetalert2";
 
+import { getConfig } from "../utils/config";
+
 export default function ModalOrderPictures({
   orderPicture,
   handleCloseOrder,
@@ -28,7 +30,9 @@ export default function ModalOrderPictures({
 
   const [inputValues, setInputValues] = useState([]);
 
-  const PICTURES_ART_URL_BASE = "http://localhost:8001/images/pictures_art/";
+  const PICTURES_ART_URL_BASE = `${
+    getConfig().URL_BASE_BACKEND
+  }/images/pictures_art/`;
 
   const comparePosition = (pos1, pos2) => {
     return pos1 - pos2;
@@ -75,13 +79,16 @@ export default function ModalOrderPictures({
           });
       }); */
 
-      await fetch(`http://localhost:8001/picturesart/order_pictures`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newOrders),
-      });
+      await fetch(
+        `${getConfig().URL_BASE_BACKEND}/picturesart/order_pictures`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newOrders),
+        }
+      );
 
       updateImagesOrder();
     }

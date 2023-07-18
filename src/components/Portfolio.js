@@ -13,6 +13,8 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { appContext } from "../contexts/appContext";
 
+import { getConfig } from "../utils/config";
+
 import { useHistory } from "react-router";
 import ModalNewPicture from "./ModalNewPicture";
 import Swal from "sweetalert2";
@@ -32,12 +34,14 @@ const Portfolio = () => {
 
   const [orderPicture, setOrderPicture] = useState(false);
 
-  const PICTURES_ART_URL_BASE = "http://localhost:8001/images/pictures_art";
+  const PICTURES_ART_URL_BASE = `${
+    getConfig().URL_BASE_BACKEND
+  }/images/pictures_art`;
 
   const loadImages = async () => {
     console.log("loading...");
     try {
-      const url = `http://localhost:8001/picturesart`;
+      const url = `${getConfig().URL_BASE_BACKEND}/picturesart`;
 
       const response = await fetch(url, {
         method: "get",
@@ -82,10 +86,13 @@ const Portfolio = () => {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await fetch(`http://localhost:8001/picturesart/${productId}`, {
-            method: "DELETE",
-            credentials: "include",
-          });
+          await fetch(
+            `${getConfig().URL_BASE_BACKEND}/picturesart/${productId}`,
+            {
+              method: "DELETE",
+              credentials: "include",
+            }
+          );
 
           loadImages();
 
@@ -199,10 +206,12 @@ const Portfolio = () => {
                           top: "18px",
                           right: "-20px",
 
-                          backgroundColor: "blue",
-                          color: "white",
+                          backgroundColor: "white",
+                          color: "black",
                           padding: "4px 8px",
+                          border: "solid black",
                           borderRadius: "50%",
+
                           fontWeight: "bold",
                           fontSize: "25px",
                           transform: "translateX(-50%)",

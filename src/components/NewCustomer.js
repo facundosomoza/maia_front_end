@@ -6,6 +6,8 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import { getConfig } from "../utils/config";
+
 import Swal from "sweetalert2";
 
 import { appContext } from "../contexts/appContext";
@@ -31,7 +33,7 @@ const NewCustomer = () => {
   useEffect(() => {
     const fetchExistingEmails = async () => {
       try {
-        const response = await fetch("http://localhost:8001/users");
+        const response = await fetch(`${getConfig().URL_BASE_BACKEND}/users`);
         const data = await response.json();
         setExistingEmails(data.email);
       } catch (error) {
@@ -115,17 +117,27 @@ const NewCustomer = () => {
 
   return (
     <Container>
-      <Row className="justify-content-center">
-        <Col xs={9} sm={8} md={7} lg={5} xl={5}>
+      <Row className="d-flex align-items-center justify-content-center mt-4">
+        <Col className="col-5">
           <Form>
             <Form.Group>
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="text" onChange={handleEmailAddressNew} />
+              <Form.Control
+                type="text"
+                onChange={handleEmailAddressNew}
+                required
+                className="bg-light"
+              />
               {emailAddressNew ? "" : message}
             </Form.Group>
             <Form.Group>
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" onChange={handlePasswordNew} />
+              <Form.Control
+                type="password"
+                onChange={handlePasswordNew}
+                required
+                className="bg-light"
+              />
               {passwordNew ? "" : message}
             </Form.Group>
           </Form>

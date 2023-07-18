@@ -14,11 +14,14 @@ import Col from "react-bootstrap/Col";
 import { useHistory } from "react-router-dom";
 
 import Swal from "sweetalert2";
+import { getConfig } from "../utils/config";
 
 const CartDetail = () => {
   const context = useContext(appContext);
 
-  const PICTURES_ART_URL_BASE = "http://localhost:8001/images/pictures_art";
+  const PICTURES_ART_URL_BASE = `${
+    getConfig().URL_BASE_BACKEND
+  }/images/pictures_art`;
 
   const history = useHistory();
 

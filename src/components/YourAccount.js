@@ -7,6 +7,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
+import { getConfig } from "../utils/config";
+
 import { NavLink, useHistory, useLocation, Link } from "react-router-dom";
 
 import { appContext } from "../contexts/appContext";
@@ -50,7 +52,7 @@ const YourAccount = () => {
 
     if (value) {
       try {
-        const url = "http://localhost:8001/auth";
+        const url = `${getConfig().URL_BASE_BACKEND}/auth`;
 
         const dataUser = {
           email: emailEx,
@@ -87,48 +89,66 @@ const YourAccount = () => {
   };
 
   return (
-    <Container className="d-flex align-items-center justify-content-center mt-5">
+    <Container className="d-flex align-items-center justify-content-center ">
       {context.yourAccount === true ? (
-        <Row>
-          <h1>You must be logged in to purchase or add products to cart</h1>
-          <Col className="d-flex justify-content-center">
-            <Card style={{ width: "18rem" }}>
-              <Card.Body>
-                <Card.Title>Existing Customer</Card.Title>
-                <Card.Text>
-                  <Form>
-                    <Form.Group>
-                      <Form.Label>Email address</Form.Label>
-                      <Form.Control type="text" onChange={handleEmailEx} />
-                    </Form.Group>
-                    {emailEx ? "" : message}
-                    <Form.Group>
-                      <Form.Label>Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        onChange={handlePasswordEx}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Card.Text>
-                <Button variant="primary" onClick={handleContinue}>
-                  Continue
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <Card style={{ width: "18rem" }}>
-              <Card.Body className="d-flex flex-column justify-content-center my-auto">
-                <Card.Title>New Customer</Card.Title>
-                <NavLink to="/newcustomer">JOIN</NavLink>
-                <Card.Text>Create your account</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        <>
+          <Row className="d-flex align-items-center justify-content-center ">
+            <Row className="mt-4">
+              <Col>
+                <h1>
+                  You must be logged in to purchase or add products to cart
+                </h1>
+              </Col>
+            </Row>
+            <Row className="mt-4">
+              <Col className="justify-content-center">
+                <Card style={{ width: "18rem" }}>
+                  <Card.Body>
+                    <Card.Title>Existing Customer</Card.Title>
+                    <Card.Text>
+                      <Form>
+                        <Form.Group>
+                          <Form.Label>Email address</Form.Label>
+                          <Form.Control
+                            type="text"
+                            className="bg-light"
+                            onChange={handleEmailEx}
+                          />
+                        </Form.Group>
+                        {emailEx ? "" : message}
+                        <Form.Group>
+                          <Form.Label>Password</Form.Label>
+                          <Form.Control
+                            type="password"
+                            className="bg-light"
+                            onChange={handlePasswordEx}
+                          />
+                        </Form.Group>
+                        <Link to="/forgot-password">
+                          Forgotten Your Password?
+                        </Link>
+                      </Form>
+                    </Card.Text>
+                    <Button variant="primary" onClick={handleContinue}>
+                      Continue
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col className="d-flex justify-content-center">
+                <Card style={{ width: "18rem" }}>
+                  <Card.Body>
+                    <Card.Title>New Customer</Card.Title>
+                    <NavLink to="/newcustomer">JOIN</NavLink>
+                    <Card.Text>Create your account</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Row>
+        </>
       ) : (
-        <Row>
+        <Row className="mt-4">
           <Col className="justify-content-center">
             <Card style={{ width: "18rem" }}>
               <Card.Body>
@@ -137,16 +157,21 @@ const YourAccount = () => {
                   <Form>
                     <Form.Group>
                       <Form.Label>Email address</Form.Label>
-                      <Form.Control type="text" onChange={handleEmailEx} />
+                      <Form.Control
+                        type="text"
+                        className="bg-light"
+                        onChange={handleEmailEx}
+                      />
                     </Form.Group>
                     <Form.Group>
                       <Form.Label>Password</Form.Label>
                       <Form.Control
                         type="password"
+                        className="bg-light"
                         onChange={handlePasswordEx}
                       />
                     </Form.Group>
-                    <Link to="/forgot-password">Forgotten Your Password</Link>
+                    <Link to="/forgot-password">Forgotten Your Password?</Link>
                   </Form>
                 </Card.Text>
                 <Button variant="primary" onClick={handleContinue}>
@@ -155,9 +180,9 @@ const YourAccount = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col>
+          <Col className="d-flex justify-content-center">
             <Card style={{ width: "18rem" }}>
-              <Card.Body className="d-flex flex-column justify-content-center my-auto">
+              <Card.Body>
                 <Card.Title>New Customer</Card.Title>
                 <NavLink to="/newcustomer">JOIN</NavLink>
                 <Card.Text>Create your account</Card.Text>

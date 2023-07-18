@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
+import { getConfig } from "../utils/config";
 
 const Contact = () => {
   const [firstName, setFirstName] = useState("");
@@ -54,7 +55,7 @@ const Contact = () => {
 
     if (value) {
       try {
-        const url = "http://localhost:8001/form_contact";
+        const url = `${getConfig().URL_BASE_BACKEND}/form_contact`;
 
         const dataMessage = {
           firstName: firstName,
@@ -97,7 +98,6 @@ const Contact = () => {
                     type="text"
                     value={firstName}
                     onChange={handleFirstNameChange}
-                    required
                     className="bg-light"
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
@@ -110,7 +110,6 @@ const Contact = () => {
                     type="text"
                     value={lastName}
                     onChange={handleLastNameChange}
-                    required
                     className="bg-light"
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
@@ -124,7 +123,6 @@ const Contact = () => {
                 type="email"
                 value={email}
                 onChange={handleEmailChange}
-                required
                 className="bg-light"
               />
               <Form.Text className="text-muted">Required</Form.Text>
@@ -136,7 +134,6 @@ const Contact = () => {
                 type="text"
                 value={subject}
                 onChange={handleSubjectChange}
-                required
                 className="bg-light"
               />
               <Form.Text className="text-muted">Required</Form.Text>

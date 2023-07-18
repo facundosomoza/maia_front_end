@@ -2,9 +2,12 @@ import React, { useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+
+import { getConfig } from "../utils/config";
 
 import { Link } from "react-router-dom";
 
@@ -17,7 +20,7 @@ export default function ForgotPassword() {
   };
 
   const handleFormSubmit = async () => {
-    const url = "http://localhost:8001/forgot_password";
+    const url = `${getConfig().URL_BASE_BACKEND}/forgot_password`;
 
     fetch(url, {
       method: "POST",
@@ -39,26 +42,46 @@ export default function ForgotPassword() {
     console.log("hola");
   };
   return (
-    <Container className="mt-4 d-flex justify-content-center">
-      <div className="w-50">
-        <Form>
-          <h2>Forgotten your password?</h2>
-          <p>
-            Please enter your email address below and we'll email you
-            instructions to reset it
-          </p>
-
-          <Form.Group controlId="formEmail">
-            <Form.Label>Email address:</Form.Label>
-            <Form.Control type="email" required className="bg-light" />
-          </Form.Group>
-
-          <Button variant="primary" onClick={handleFormSubmit}>
-            RESET PASSWORD
-          </Button>
-          <Link to="/youraccount">CANCEL</Link>
-        </Form>
-      </div>
+    <Container>
+      <Row className="mt-4 d-flex justify-content-center">
+        <Col className="col-6">
+          <Form>
+            <Row>
+              <Col>
+                <h2>Forgotten your password?</h2>
+              </Col>
+            </Row>
+            <Row className="mt-2">
+              <Col>
+                <span>
+                  Please enter your email address below and we'll email you
+                  instructions to reset it
+                </span>
+              </Col>
+            </Row>
+            <Row className="mt-2">
+              <Col>
+                <Form.Group controlId="formEmail">
+                  <Form.Label>Email address:</Form.Label>
+                  <Form.Control type="email" required className="bg-light" />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className="mt-2">
+              <Col>
+                <Button
+                  variant="primary"
+                  className="mr-2"
+                  onClick={handleFormSubmit}
+                >
+                  Reset Password
+                </Button>
+                <Link to="/youraccount">Cancel</Link>
+              </Col>
+            </Row>
+          </Form>
+        </Col>
+      </Row>
     </Container>
   );
 }
