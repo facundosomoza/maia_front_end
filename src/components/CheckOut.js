@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Image from "react-bootstrap/Image";
 
+import { getConfig } from "../utils/config";
+
 import { appContext } from "../contexts/appContext";
 
 import { useLocation } from "react-router-dom";

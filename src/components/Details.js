@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import { useLocation } from "react-router-dom";
 
 import { appContext } from "../contexts/appContext";
+import { getConfig } from "../utils/config";
 
 const Details = () => {
   const IMAGES_BASE_URL = `${
