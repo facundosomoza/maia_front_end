@@ -11,6 +11,9 @@ import Details from "./components/Details";
 import CheckOut from "./components/CheckOut";
 import CartDetail from "./components/CartDetail";
 import ForgotPassword from "./components/ForgotPassword";
+import Footer from "./components/Footer";
+import TermsPrivacy from "./components/TermsPrivacy";
+import ShippingReturns from "./components/ShippingReturns";
 
 import { Switch, Route } from "react-router-dom";
 import AppContextProvider from "./contexts/appContext";
@@ -59,6 +62,18 @@ function App() {
 
           <Route path="/youraccount">
             <YourAccount></YourAccount>
+          </Route>
+
+          <Route path="/footer">
+            <Footer></Footer>
+          </Route>
+
+          <Route path="/terms-privacy">
+            <TermsPrivacy></TermsPrivacy>
+          </Route>
+
+          <Route path="/shipping-returns">
+            <ShippingReturns></ShippingReturns>
           </Route>
         </Switch>
       </AppContextProvider>

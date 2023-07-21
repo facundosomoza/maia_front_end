@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import UpdateImageHome from "./UpdateImageHome";
 import ModalHome from "./ModalHome";
+import Footer from "./Footer";
 
 import { getConfig } from "../utils/config";
 
@@ -78,6 +79,8 @@ const Home = () => {
         handleClose={handleClose}
         reloadHomeImage={fetchHomeImage}
       />
+
+      <Footer></Footer>
     </Container>
   );
 };

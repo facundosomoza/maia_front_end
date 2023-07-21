@@ -30,7 +30,11 @@ const Contact = () => {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    console.log("HERE...");
+
     let value = true;
 
     if (firstName.trim().length === 0) {

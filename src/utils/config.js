@@ -7,7 +7,7 @@ const config = {
   },
   prod: {
     PORT: 8001,
-    URL_BASE_BACKEND: "http://maiatsadzeart.com:8001",
+    URL_BASE_BACKEND: "https://maiatsadzeart.com:8001",
   },
 };
 
