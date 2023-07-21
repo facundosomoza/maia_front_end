@@ -77,7 +77,7 @@ const NewCustomer = () => {
     }
     if (value) {
       try {
-        const url = "http://localhost:8001/users";
+        const url = `${getConfig().URL_BASE_BACKEND}/users`;
 
         const dataUser = {
           email: emailAddressNew,

@@ -41,7 +41,7 @@ const AppContextProvider = ({ children }) => {
     console.log(user);
     if (user.email && user.userId) {
       console.log("antes");
-      const url = `http://localhost:8001/cart/${user.userId}`;
+      const url = `${getConfig().URL_BASE_BACKEND}/cart/${user.userId}`;
       console.log("despues");
       const response = await fetch(url, {
         method: "get",
@@ -135,7 +135,7 @@ const AppContextProvider = ({ children }) => {
 
     if (loggedUser === true) {
       console.log("true");
-      const url = "http://localhost:8001/cart/add_to_cart";
+      const url = `${getConfig().URL_BASE_BACKEND}/cart/add_to_cart`;
 
       const response = await fetch(url, {
         method: "post",

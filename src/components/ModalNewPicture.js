@@ -22,7 +22,7 @@ export default function ModalNewPicture({
 
   const context = useContext(appContext);
 
-  const urlPicture = "http://localhost:8001/images/pictures_art/";
+  const urlPicture = `${getConfig().URL_BASE_BACKEND}/images/pictures_art/`;
 
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -162,7 +162,9 @@ export default function ModalNewPicture({
             });
             console.log(response);
           } else {
-            const url = `http://localhost:8001/picturesart/${modalInfo.id}`;
+            const url = `${getConfig().URL_BASE_BACKEND}/picturesart/${
+              modalInfo.id
+            }`;
 
             const response = await fetch(url, {
               method: "put",

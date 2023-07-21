@@ -15,11 +15,13 @@ import { useLocation } from "react-router-dom";
 
 const CheckOut = ({ totalAmount }) => {
   console.log({ totalAmount });
-  const IMAGES_BASE_URL = "http://localhost:8001/images/pictures_art/";
+  const IMAGES_BASE_URL = `${getConfig().URL_BASE_BACKEND}/pictures_art/`;
 
   const context = useContext(appContext);
 
-  const PICTURES_ART_URL_BASE = "http://localhost:8001/images/pictures_art";
+  const PICTURES_ART_URL_BASE = `${
+    getConfig().URL_BASE_BACKEND
+  }/images/pictures_art`;
 
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");

@@ -12,7 +12,9 @@ import { useLocation } from "react-router-dom";
 import { appContext } from "../contexts/appContext";
 
 const Details = () => {
-  const IMAGES_BASE_URL = "http://localhost:8001/images/pictures_art/";
+  const IMAGES_BASE_URL = `${
+    getConfig().URL_BASE_BACKEND
+  }/images/pictures_art/`;
 
   const context = useContext(appContext);
 

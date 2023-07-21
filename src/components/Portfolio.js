@@ -135,7 +135,7 @@ const Portfolio = () => {
         const updatedImage = { ...image, sold: !image.sold };
 
         // Realizar la solicitud al servidor para actualizar el estado "sold" en la base de datos
-        fetch(`http://localhost:8001/picturesart/${imageId}/sold`, {
+        fetch(`${getConfig().URL_BASE_BACKEND}/picturesart/${imageId}/sold`, {
           method: "PUT", // Utilizar el método PUT para actualizar la imagen en el servidor
           headers: {
             "Content-Type": "application/json", // Especificar el tipo de contenido como JSON

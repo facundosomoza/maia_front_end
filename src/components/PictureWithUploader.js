@@ -38,7 +38,7 @@ export default function PictureWithUploader({
     formData.append("position", order);
 
     // Ejemplo de envío de imágenes al backend utilizando fetch
-    fetch("http://localhost:8001/biography-pictures", {
+    fetch(`${getConfig().URL_BASE_BACKEND}/biography-pictures`, {
       method: "POST",
       body: formData,
     })
