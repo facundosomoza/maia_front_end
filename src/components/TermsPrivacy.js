@@ -10,18 +10,20 @@ const TermsPrivacy = () => {
   }, []);
 
   return (
-    <Container>
-      <Row className="custom-row">
-        <Col>
+    <Container className="d-flex justify-content-center">
+      <Row className="custom-row align-items-center">
+        <Col md={8} className="text-center">
           <h1>Terms of Service</h1>
-          <h6>General Terms and Conditions</h6>
-          <p>
+          <h6 className="text-left">General Terms and Conditions</h6>
+          <p className="text-left ml-3">
             1- The artist retains the copyright of all images on this website.
             <br />
             2- The artist retains the right, in perpetuity, to use digitally
-            recorded images of any purchased artwork for whatever purpose she
-            chooses, including, but not restricted to, the purposes of promotion
-            and creating reproductions based on such images for financial gain.
+            recorded images of any purchased artwork
+            <br />
+            for whatever purpose she chooses, including, but not restricted to,
+            the purposes of promotion and creating reproductions based on such
+            images for financial gain.
             <br />
             3-Prints of commissioned works will only be made available with the
             consent of the purchaser.
