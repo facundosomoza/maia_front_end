@@ -65,15 +65,15 @@ const CartDetail = () => {
                 <td className="align-middle">{info.name}</td>
                 <td className="align-middle">{info.price}</td>
                 <td className="align-middle">
-                  <Button
-                    variant="danger"
+                  <button
+                    className="delete-button"
                     onClick={() => {
                       console.log(info);
                       context.handleDelete(info);
                     }}
                   >
                     Delete
-                  </Button>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -85,7 +85,9 @@ const CartDetail = () => {
               Total Amount: {context.totalAmount()}
             </div>
 
-            <Button onClick={handleCheckOut}>Check Out</Button>
+            <button className="button-style" onClick={handleCheckOut}>
+              Check Out
+            </button>
           </Col>
         </Row>
       </Container>

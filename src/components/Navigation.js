@@ -66,7 +66,7 @@ const Navigation = () => {
   }, []);
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar expand="lg" className="button-style">
       <Container>
         <NavLink className="navbar-brand" exact to="/">
           Maia Tsintsadze
@@ -78,7 +78,7 @@ const Navigation = () => {
               Portfolio
             </NavLink>
             <NavLink to="/biography" className="nav-link ">
-              Biography
+              About
             </NavLink>
             <NavLink className="nav-link" to="/contact">
               Contact
@@ -110,9 +110,12 @@ const Navigation = () => {
                           </span>
                         )}
                         <span className="ml-2">{context.user.email}</span>
-                        <Button className="ml-2" onClick={handleLogOut}>
+                        <button
+                          className="button-style-second"
+                          onClick={handleLogOut}
+                        >
                           Log-out
-                        </Button>
+                        </button>
                       </div>
                     </NavLink>
                   ))}

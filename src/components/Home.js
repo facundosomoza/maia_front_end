@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <Container>
       <Row>
-        <Col className="text-center">
+        <Col className="text-center mt-4">
           {context.user && context.user.email === "maia@gmail.com" && (
             <UpdateImageHome handleUpdateImage={handleUpdateImage} />
           )}
@@ -62,7 +62,7 @@ const Home = () => {
         <Col className="text-center">
           {isImageLoaded ? (
             <img
-              className="img-fluid img-thumbnail w-75"
+              className="img-fluid custom-border w-75"
               src={`${
                 getConfig().URL_BASE_BACKEND
               }/images/profile/${homeImage}`}

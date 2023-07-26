@@ -215,9 +215,9 @@ const CheckOut = ({ totalAmount }) => {
           </Table>
           <div className="d-flex align-items-center justify-content-center">
             {context.totalAmount()}
-            <Button variant="primary" onClick={handleCheckOut}>
-              Check-Out
-            </Button>
+            <button className="button-style" onClick={handleCheckOut}>
+              Pay with Paypal
+            </button>
           </div>
         </Col>
       </Row>

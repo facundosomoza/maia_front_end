@@ -190,7 +190,7 @@ const Portfolio = () => {
         <Row className="row-cols-1 row-cols-sm-2">
           {console.log(images)}
           {images.map((obraArte) => (
-            <Col className="mb-4">
+            <Col className="mb-4 ">
               <Card className="h-100 p-4">
                 {obraArte.images.length > 0 && (
                   <div style={{ position: "relative" }}>
@@ -203,21 +203,22 @@ const Portfolio = () => {
                       <div
                         style={{
                           position: "absolute",
-                          top: "18px",
-                          right: "-20px",
+                          top: "5px",
+                          right: "-60px",
 
-                          backgroundColor: "white",
-                          color: "black",
+                          backgroundColor:
+                            "linear-gradient(to right, #a18cd1, #fbc2eb, #8c7ca4)",
+                          color: "#8c7ca4",
                           padding: "4px 8px",
-                          border: "solid black",
+                          border: "#8c7ca4 solid",
                           borderRadius: "50%",
 
                           fontWeight: "bold",
-                          fontSize: "25px",
+                          fontSize: "20px",
                           transform: "translateX(-50%)",
                         }}
                       >
-                        <span>SOLD</span>
+                        <span>SOLD OUT</span>
                       </div>
                     ) : null}
                   </div>

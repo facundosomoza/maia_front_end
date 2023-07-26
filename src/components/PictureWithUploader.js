@@ -55,9 +55,10 @@ export default function PictureWithUploader({
   };
 
   return (
-    <Col className="d-flex align-items-center justify-content-center ">
+    <Col className="d-flex align-items-center justify-content-center  ">
       <img
-        className={`img-fluid img-thumbnail ${imageClass ? imageClass : ""}`}
+        className={`img-fluid ${imageClass ? imageClass : ""} custom-border `}
+        style={{ borderRadius: "15px", width: "80%" }}
         src={
           uploadedImage
             ? URL.createObjectURL(uploadedImage)
@@ -66,7 +67,6 @@ export default function PictureWithUploader({
             : imgNoPicture
         }
         alt="Maia Tsintsadze"
-        width="80%"
       />
       {context.user && context.user.email === "maia@gmail.com" && (
         <Row>

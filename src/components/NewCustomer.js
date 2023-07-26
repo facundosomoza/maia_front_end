@@ -141,7 +141,9 @@ const NewCustomer = () => {
               {passwordNew ? "" : message}
             </Form.Group>
           </Form>
-          <Button onClick={handleRegisterNew}>Register</Button>
+          <button className="button-style" onClick={handleRegisterNew}>
+            Register
+          </button>
         </Col>
       </Row>
     </Container>

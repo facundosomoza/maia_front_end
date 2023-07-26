@@ -38,11 +38,19 @@
 }
 
 .custom-row h1 {
-  font-family: "Arial", sans-serif;
+  font-family: "Georgia", sans-serif;
 }
 
 .custom-row p {
-  font-family: "Helvetica", sans-serif;
+  font-family: "Georgia";
+}
+
+.custom-border {
+  border: 2px solid;
+  border-image: linear-gradient(to right, #a18cd1, #fbc2eb);
+  border-image-slice: 1;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .img-sm {
@@ -59,4 +67,55 @@
 
 .img-xl {
   width: 1000px;
+}
+
+.button-style {
+  background-image: linear-gradient(to right, #a18cd1, #fbc2eb, #8c7ca4);
+  color: #8c7ca4;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-style-second {
+  background-image: linear-gradient(to right, #a18cd1 1%, #fbc2eb);
+  color: #8c7ca4;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #8c7ca4; /* Borde blanco de 2px */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  cursor: pointer;
+  margin-left: 10px;
+  line-height: 150%;
+  transition: background-color 0.3s ease;
+}
+
+.button-style-second:hover {
+  border-color: white; /* Cambia el color del borde al pasar el cursor */
+  color: white;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3); /* Agrega una sombra al pasar el cursor */
+  /* Otros estilos adicionales si los deseas */
+}
+
+.delete-button {
+  background-image: linear-gradient(to right, #f6665c, #f44336);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.delete-button:hover {
+  background-image: linear-gradient(
+    to right,
+    #d32f2f,
+    #b71c1c
+  ); /* Gradiente lineal de rojo oscuro a rojo más oscuro */
 }

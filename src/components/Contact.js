@@ -154,9 +154,7 @@ const Contact = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" size="lg">
-              Submit
-            </Button>
+            <button className="button-style">Submit</button>
           </Form>
         </div>
       </Container>

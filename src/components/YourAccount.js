@@ -129,9 +129,9 @@ const YourAccount = () => {
                         </Link>
                       </Form>
                     </Card.Text>
-                    <Button variant="primary" onClick={handleContinue}>
+                    <button className="button-style" onClick={handleContinue}>
                       Continue
-                    </Button>
+                    </button>
                   </Card.Body>
                 </Card>
               </Col>
@@ -174,9 +174,9 @@ const YourAccount = () => {
                     <Link to="/forgot-password">Forgotten Your Password?</Link>
                   </Form>
                 </Card.Text>
-                <Button variant="primary" onClick={handleContinue}>
+                <button className="button-style" onClick={handleContinue}>
                   Continue
-                </Button>
+                </button>
               </Card.Body>
             </Card>
           </Col>

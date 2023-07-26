@@ -82,7 +82,8 @@ const Details = () => {
             ) : pictureSelected ? (
               <>
                 <span>Picture added to the cart</span>
-                <Button
+                <button
+                  className="delete-button"
                   onClick={() =>
                     context.handleDelete({
                       id_obra_arte: picture.id,
@@ -91,15 +92,16 @@ const Details = () => {
                   }
                 >
                   Delete
-                </Button>
+                </button>
               </>
             ) : (
               !picture.sold && (
-                <Button
+                <button
+                  className="button-style"
                   onClick={() => context.handleAddToCart(picture, "portfolio")}
                 >
                   Add to Cart
-                </Button>
+                </button>
               )
             )}
           </div>
