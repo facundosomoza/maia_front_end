@@ -41,7 +41,7 @@ const Biography = () => {
         <Row className="custom-row">
           <Col className="text-center">
             <h1 className="mt-4">Maia Tsintsadze</h1>
-            <p className="w-50 mx-auto mt-4 text-center">
+            <p className="mx-auto mt-4 text-center">
               is an abstract artist who creates captivating and expressive
               artwork that explores human emotions and the constantly changing
               nature of life.
@@ -52,7 +52,9 @@ const Biography = () => {
           </Col>
         </Row>
         <Row className="mt-4 custom-row align-items-center">
-          <PictureWithUploader order={1} initialImage={getInitialImage(1)} />
+          <Col className="col-12 col-lg-6 mb-2">
+            <PictureWithUploader order={1} initialImage={getInitialImage(1)} />
+          </Col>
 
           <Col>
             <p className="text-center">
@@ -103,7 +105,10 @@ const Biography = () => {
               that await them.
             </p>
           </Col>
-          <PictureWithUploader order={2} initialImage={getInitialImage(2)} />
+
+          <Col className="col-12 col-lg-6 mb-2">
+            <PictureWithUploader order={2} initialImage={getInitialImage(2)} />
+          </Col>
         </Row>
         <Row className="mt-4 custom-row align-items-center">
           <Col md={10} className="mx-auto">
@@ -122,13 +127,16 @@ const Biography = () => {
             </p>
           </Col>
         </Row>
-        <Row className="mt-4">
-          <PictureWithUploader
-            order={3}
-            initialImage={getInitialImage(3)}
-            imageClass="img-lg"
-          />
+        <Row className="mt-4 d-flex justify-content-center">
+          <Col className="col-12 col-lg-10 mb-2">
+            <PictureWithUploader
+              order={3}
+              initialImage={getInitialImage(3)}
+              imageClass="img-lg"
+            />
+          </Col>
         </Row>
+
         <Row className="mt-4 custom-row align-items-center">
           <Col md={10} className="mx-auto">
             <p className="text-center">
@@ -141,10 +149,10 @@ const Biography = () => {
           </Col>
         </Row>
         <Row className="mt-4">
-          <Col>
+          <Col className="col-12 col-md-6 mb-2">
             <PictureWithUploader order={4} initialImage={getInitialImage(4)} />
           </Col>
-          <Col>
+          <Col className="col-12 col-md-6">
             <PictureWithUploader order={5} initialImage={getInitialImage(5)} />
           </Col>
         </Row>
@@ -166,12 +174,14 @@ const Biography = () => {
             </p>
           </Col>
         </Row>
-        <Row className="mt-4">
-          <PictureWithUploader
-            order={6}
-            initialImage={getInitialImage(6)}
-            imageClass="img-lg"
-          />
+        <Row className="mt-4 d-flex justify-content-center">
+          <Col className="col-12 col-lg-10 mb-2">
+            <PictureWithUploader
+              order={6}
+              initialImage={getInitialImage(6)}
+              imageClass="img-lg"
+            />
+          </Col>
         </Row>
       </Container>
       {/*  <ModalBiography

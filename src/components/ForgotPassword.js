@@ -69,13 +69,12 @@ export default function ForgotPassword() {
             </Row>
             <Row className="mt-2">
               <Col>
-                <Button
-                  variant="primary"
-                  className="mr-2"
+                <button
+                  className="mr-2 button-style"
                   onClick={handleFormSubmit}
                 >
                   Reset Password
-                </Button>
+                </button>
                 <Link to="/youraccount">Cancel</Link>
               </Col>
             </Row>

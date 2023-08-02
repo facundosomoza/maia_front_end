@@ -213,12 +213,19 @@ const CheckOut = ({ totalAmount }) => {
               ))}
             </tbody>
           </Table>
-          <div className="d-flex align-items-center justify-content-center">
-            {context.totalAmount()}
-            <button className="button-style" onClick={handleCheckOut}>
-              Pay with Paypal
-            </button>
-          </div>
+
+          <Row>
+            <Col className="d-flex align-items-center justify-content-center">
+              {context.totalAmount()}
+            </Col>
+          </Row>
+          <Row>
+            <Col className="d-flex align-items-center justify-content-center">
+              <button className="button-style" onClick={handleCheckOut}>
+                Pay with Paypal
+              </button>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>

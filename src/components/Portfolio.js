@@ -188,15 +188,15 @@ const Portfolio = () => {
           </Row>
         )}
         <Row className="row-cols-1 row-cols-sm-2">
-          {console.log(images)}
           {images.map((obraArte) => (
             <Col className="mb-4 ">
-              <Card className="h-100 p-4">
+              <Card className="h-100 p-4 custom-border">
                 {obraArte.images.length > 0 && (
                   <div style={{ position: "relative" }}>
                     <Card.Img
                       onClick={() => handleClick(obraArte)}
                       variant="top"
+                      style={{ cursor: "pointer" }}
                       src={`${PICTURES_ART_URL_BASE}/${obraArte.images[0].file_image}`}
                     />
                     {obraArte.sold ? (

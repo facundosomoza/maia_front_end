@@ -92,7 +92,7 @@ const Contact = () => {
   return (
     <>
       <Container className="mt-4 d-flex justify-content-center">
-        <div className="w-75">
+        <div className="w-75 mt-2">
           <Form onSubmit={handleSubmit}>
             <Form.Row>
               <Col md={6}>

@@ -73,10 +73,22 @@ const Details = () => {
         </Col>
 
         <Col xs={12} md={4}>
-          <div>
-            <Form.Text>{picture.name}</Form.Text>
-            <Form.Text>{picture.description}</Form.Text>
-            <Form.Text>{picture.price}</Form.Text>
+          <div className="custom-row">
+            <Row>
+              <Col>
+                <h3>{picture.name}</h3>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <span>{picture.price}</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p>{picture.description}</p>
+              </Col>
+            </Row>
             {context.user && context.user.email === "maia@gmail.com" ? (
               ""
             ) : pictureSelected ? (

@@ -55,7 +55,7 @@ export default function PictureWithUploader({
   };
 
   return (
-    <Col className="d-flex align-items-center justify-content-center  ">
+    <Col className="d-flex align-items-center justify-content-center mb-5">
       <img
         className={`img-fluid ${imageClass ? imageClass : ""} custom-border `}
         style={{ borderRadius: "15px", width: "80%" }}

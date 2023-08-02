@@ -45,7 +45,7 @@ const CartDetail = () => {
         <Table responsive>
           <thead>
             <tr>
-              <th>Image</th>
+              <th>Picture</th>
               <th>Name</th>
               <th>Price</th>
               <th>Action</th>

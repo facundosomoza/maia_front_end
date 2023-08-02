@@ -23,6 +23,7 @@ function App() {
     <>
       <AppContextProvider>
         <Navigation />
+
         <Switch>
           <Route exact path="/">
             <Home></Home>
@@ -64,10 +65,6 @@ function App() {
             <YourAccount></YourAccount>
           </Route>
 
-          <Route path="/footer">
-            <Footer></Footer>
-          </Route>
-
           <Route path="/terms-privacy">
             <TermsPrivacy></TermsPrivacy>
           </Route>
@@ -76,6 +73,7 @@ function App() {
             <ShippingReturns></ShippingReturns>
           </Route>
         </Switch>
+        <Footer></Footer>
       </AppContextProvider>
     </>
   );

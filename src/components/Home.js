@@ -79,8 +79,6 @@ const Home = () => {
         handleClose={handleClose}
         reloadHomeImage={fetchHomeImage}
       />
-
-      <Footer></Footer>
     </Container>
   );
 };
