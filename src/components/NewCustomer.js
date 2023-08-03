@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 
+import { checkPasswordValidity } from "../utils/passwordValidation";
+
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -26,6 +28,8 @@ const NewCustomer = () => {
   const [emailAddressNew, setEmailAddressNew] = useState("");
   const [passwordNew, setPasswordNew] = useState("");
 
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+
   const [existingEmails, setExistingEmails] = useState([]);
 
   const [message, setMessage] = useState("");
@@ -48,7 +52,9 @@ const NewCustomer = () => {
   };
 
   const handlePasswordNew = (event) => {
-    setPasswordNew(event.target.value);
+    const newPassword = event.target.value;
+    setPasswordNew(newPassword);
+    setIsPasswordValid(checkPasswordValidity(newPassword));
   };
 
   const checkExistingEmail = (email) => {
@@ -68,6 +74,13 @@ const NewCustomer = () => {
     }
     if (passwordNew.trim().length === 0) {
       setMessage("You must complete the field");
+      value = false;
+    }
+
+    if (isPasswordValid(passwordNew)) {
+      setMessage(
+        "Password must include at least 8 characters, one uppercase letter, one lowercase letter, and one number"
+      );
       value = false;
     }
 
@@ -136,8 +149,18 @@ const NewCustomer = () => {
                 type="password"
                 onChange={handlePasswordNew}
                 required
-                className="bg-light"
+                className={`bg-light ${isPasswordValid ? "" : "border-danger"}`}
               />
+
+              <Row>
+                <Col>
+                  <span>
+                    Include a minimum of 8 characters, contain at least one
+                    uppercase letter, one lowercase letter and one number
+                  </span>
+                </Col>
+              </Row>
+
               {passwordNew ? "" : message}
             </Form.Group>
           </Form>
