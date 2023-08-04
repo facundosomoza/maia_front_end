@@ -1,4 +1,4 @@
-const checkPasswordValidity = (password) => {
+export const checkPasswordValidity = (password) => {
   const minLength = 8;
   const uppercaseRegex = /[A-Z]/;
   const lowercaseRegex = /[a-z]/;

@@ -123,6 +123,7 @@ const YourAccount = () => {
                             className="bg-light"
                             onChange={handlePasswordEx}
                           />
+                          {passwordEx ? "" : message}
                         </Form.Group>
                         <Link to="/forgot-password">
                           Forgotten Your Password?

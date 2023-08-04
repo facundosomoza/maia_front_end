@@ -38,22 +38,27 @@ const Contact = () => {
     let value = true;
 
     if (firstName.trim().length === 0) {
+      setMessage("You must fill this field");
       value = false;
     }
 
     if (lastName.trim().length === 0) {
+      setMessage("You must fill this field");
       value = false;
     }
 
     if (email.trim().length === 0) {
+      setMessage("You must fill this field");
       value = false;
     }
 
     if (subject.trim().length === 0) {
+      setMessage("You must fill this field");
       value = false;
     }
 
     if (message.trim().length === 0) {
+      setMessage("You must fill this field");
       value = false;
     }
 
@@ -106,6 +111,7 @@ const Contact = () => {
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
                 </Form.Group>
+                {firstName ? "" : message}
               </Col>
               <Col md={6}>
                 <Form.Group controlId="formLastName">
@@ -118,6 +124,7 @@ const Contact = () => {
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
                 </Form.Group>
+                {lastName ? "" : message}
               </Col>
             </Form.Row>
 
@@ -131,7 +138,7 @@ const Contact = () => {
               />
               <Form.Text className="text-muted">Required</Form.Text>
             </Form.Group>
-
+            {email ? "" : message}
             <Form.Group controlId="formSubject">
               <Form.Label>Subject:</Form.Label>
               <Form.Control
@@ -142,7 +149,7 @@ const Contact = () => {
               />
               <Form.Text className="text-muted">Required</Form.Text>
             </Form.Group>
-
+            {subject ? "" : message}
             <Form.Group controlId="formMessage">
               <Form.Label>Message:</Form.Label>
               <Form.Control
@@ -153,7 +160,7 @@ const Contact = () => {
                 className="bg-light"
               />
             </Form.Group>
-
+            {message ? "" : message}
             <button className="button-style">Submit</button>
           </Form>
         </div>

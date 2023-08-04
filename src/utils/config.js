@@ -6,8 +6,8 @@ const config = {
     URL_BASE_BACKEND: "http://localhost:8001",
   },
   prod: {
-    PORT: 8001,
-    URL_BASE_BACKEND: "https://maiatsadzeart.com:8001",
+    PORT: 443,
+    URL_BASE_BACKEND: "https://maiatsadzeart.com:443",
   },
 };
 
