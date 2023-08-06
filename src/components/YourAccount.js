@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -68,8 +67,6 @@ const YourAccount = () => {
 
         const data = await response.json();
 
-        console.log(data);
-
         if (response.status === 200) {
           console.log(data);
           console.log("este es el data user....", dataUser);
@@ -92,16 +89,16 @@ const YourAccount = () => {
     <Container className="d-flex align-items-center justify-content-center ">
       {context.yourAccount === true ? (
         <>
-          <Row className="d-flex align-items-center justify-content-center ">
+          <Row className="d-flex align-items-center justify-content-center  ">
             <Row className="mt-4">
               <Col>
-                <h1>
+                <h1 className="font-weight-bold text-dark">
                   You must be logged in to purchase or add products to cart
                 </h1>
               </Col>
             </Row>
-            <Row className="mt-4">
-              <Col className="justify-content-center">
+            <Row className="justify-content-center mt-4">
+              <Col xs={10} md={6}>
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title>Existing Customer</Card.Title>
@@ -115,7 +112,12 @@ const YourAccount = () => {
                             onChange={handleEmailEx}
                           />
                         </Form.Group>
-                        {emailEx ? "" : message}
+
+                        {emailEx ? (
+                          ""
+                        ) : (
+                          <p className="text-danger font-italic">{message}</p>
+                        )}
                         <Form.Group>
                           <Form.Label>Password</Form.Label>
                           <Form.Control
@@ -123,7 +125,12 @@ const YourAccount = () => {
                             className="bg-light"
                             onChange={handlePasswordEx}
                           />
-                          {passwordEx ? "" : message}
+
+                          {passwordEx ? (
+                            ""
+                          ) : (
+                            <p className="text-danger font-italic">{message}</p>
+                          )}
                         </Form.Group>
                         <Link to="/forgot-password">
                           Forgotten Your Password?
@@ -136,7 +143,7 @@ const YourAccount = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col className="d-flex justify-content-center">
+              <Col xs={10} md={6}>
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title>New Customer</Card.Title>
@@ -149,8 +156,8 @@ const YourAccount = () => {
           </Row>
         </>
       ) : (
-        <Row className="mt-4">
-          <Col className="justify-content-center">
+        <Row className="justify-content-center mt-4">
+          <Col xs={12} md={6}>
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>Existing Customer</Card.Title>
@@ -164,6 +171,11 @@ const YourAccount = () => {
                         onChange={handleEmailEx}
                       />
                     </Form.Group>
+                    {emailEx ? (
+                      ""
+                    ) : (
+                      <p className="text-danger font-italic">{message}</p>
+                    )}
                     <Form.Group>
                       <Form.Label>Password</Form.Label>
                       <Form.Control
@@ -172,6 +184,11 @@ const YourAccount = () => {
                         onChange={handlePasswordEx}
                       />
                     </Form.Group>
+                    {passwordEx ? (
+                      ""
+                    ) : (
+                      <p className="text-danger font-italic">{message}</p>
+                    )}
                     <Link to="/forgot-password">Forgotten Your Password?</Link>
                   </Form>
                 </Card.Text>
@@ -181,7 +198,7 @@ const YourAccount = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col className="d-flex justify-content-center">
+          <Col xs={12} md={6}>
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>New Customer</Card.Title>

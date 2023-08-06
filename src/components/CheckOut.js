@@ -124,14 +124,24 @@ const CheckOut = ({ totalAmount }) => {
                 <Form.Group>
                   <Form.Label>First Name *</Form.Label>
                   <Form.Control onChange={handleFirstName} />
-                  {firstName ? "" : message}
+
+                  {firstName ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group>
                   <Form.Label>Surname *</Form.Label>
                   <Form.Control onChange={handleSurname} />
-                  {surname ? "" : message}
+
+                  {surname ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -142,7 +152,12 @@ const CheckOut = ({ totalAmount }) => {
                     House/Flat number and street address *
                   </Form.Label>
                   <Form.Control onChange={handleAddress} />
-                  {address ? "" : message}
+
+                  {address ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -151,7 +166,12 @@ const CheckOut = ({ totalAmount }) => {
                 <Form.Group>
                   <Form.Label>City</Form.Label>
                   <Form.Control onChange={handleCity} />
-                  {city ? "" : message}
+
+                  {city ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -160,7 +180,12 @@ const CheckOut = ({ totalAmount }) => {
                 <Form.Group>
                   <Form.Label>County</Form.Label>
                   <Form.Control onChange={handleCounty} />
-                  {county ? "" : message}
+
+                  {county ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -169,7 +194,12 @@ const CheckOut = ({ totalAmount }) => {
                 <Form.Group>
                   <Form.Label>Eircode</Form.Label>
                   <Form.Control onChange={handleEircode} />
-                  {eircode ? "" : message}
+
+                  {eircode ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -179,7 +209,12 @@ const CheckOut = ({ totalAmount }) => {
                 <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control onChange={handleEmail} />
-                  {email ? "" : message}
+
+                  {email ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -188,7 +223,12 @@ const CheckOut = ({ totalAmount }) => {
                 <Form.Group>
                   <Form.Label>Mobile Number</Form.Label>
                   <Form.Control onChange={handleMobileNumber} />
-                  {mobileNumber ? "" : message}
+
+                  {mobileNumber ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
               </Col>
             </Row>

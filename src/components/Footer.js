@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import { Container, Row, Col } from "react-bootstrap";
-
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
@@ -37,6 +35,16 @@ const Footer = () => {
           >
             SHIPPING & RETURNS
           </NavLink>
+        </Col>
+      </Row>
+      <Row className="mt-4">
+        <Col className="offset-md-3 col-md-6">
+          <p className="text-center" style={{ fontSize: "14px" }}>
+            All artwork is the sole property of Maia Tsintsadze and is held
+            under copyright. The images, artwork, and contents of this website
+            may not be copied, collected, or used for personal or professional
+            gain without express written permission from the artist.
+          </p>
         </Col>
       </Row>
     </Container>

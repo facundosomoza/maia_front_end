@@ -98,26 +98,44 @@ const Navigation = () => {
 
                 {!context.user ||
                   (context.user.email !== "maia@gmail.com" && (
-                    <NavLink className="nav-link" to="/cartdetail">
-                      <div className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                          icon={faCartShopping}
-                          className="mr-1"
-                        />
-                        {context.cart.length > 0 && (
-                          <span className="badge badge-primary ">
-                            {context.cart.length}
-                          </span>
-                        )}
-                        <span className="ml-2">{context.user.email}</span>
-                        <button
-                          className="button-style-second"
-                          onClick={handleLogOut}
-                        >
-                          Log-out
-                        </button>
-                      </div>
-                    </NavLink>
+                    <>
+                      {context.cart.length > 0 ? (
+                        <NavLink className="nav-link" to="/cartdetail">
+                          <div className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                              icon={faCartShopping}
+                              className="mr-1"
+                            />
+                            <span className="badge badge-primary ">
+                              {context.cart.length}
+                            </span>
+                            <span className="ml-2">{context.user.email}</span>
+                            <button
+                              className="button-style-second"
+                              onClick={handleLogOut}
+                            >
+                              Log-out
+                            </button>
+                          </div>
+                        </NavLink>
+                      ) : (
+                        <div className="nav-link">
+                          <div className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                              icon={faCartShopping}
+                              className="mr-1"
+                            />
+                            <span className="ml-2">{context.user.email}</span>
+                            <button
+                              className="button-style-second"
+                              onClick={handleLogOut}
+                            >
+                              Log-out
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </>
                   ))}
               </>
             ) : (

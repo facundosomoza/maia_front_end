@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { appContext } from "../contexts/appContext";
 
-import CheckOut from "./CheckOut";
-
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
@@ -13,7 +9,6 @@ import Col from "react-bootstrap/Col";
 
 import { useHistory } from "react-router-dom";
 
-import Swal from "sweetalert2";
 import { getConfig } from "../utils/config";
 
 const CartDetail = () => {
@@ -29,6 +24,12 @@ const CartDetail = () => {
     context.getInfo();
   }, []);
 
+  useEffect(() => {
+    if (context.cart.length === 0) {
+      history.push("/portfolio");
+    }
+  }, [context.cart, history]);
+
   const handleCheckOut = () => {
     if (context.loggedUser === true) {
       history.push("/checkout");
@@ -42,13 +43,21 @@ const CartDetail = () => {
   return (
     <>
       <Container>
-        <Table responsive>
+        <Table responsive className="w-100">
           <thead>
             <tr>
-              <th>Picture</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Action</th>
+              <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-3 text-left">
+                Picture
+              </th>
+              <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-4 text-left">
+                Name
+              </th>
+              <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-4 text-left">
+                Price
+              </th>
+              <th className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 text-left ">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -66,7 +75,7 @@ const CartDetail = () => {
                 <td className="align-middle">{info.price}</td>
                 <td className="align-middle">
                   <button
-                    className="delete-button"
+                    className="delete-button btn btn-md "
                     onClick={() => {
                       console.log(info);
                       context.handleDelete(info);

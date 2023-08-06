@@ -76,35 +76,45 @@ const Details = () => {
           <div className="custom-row">
             <Row>
               <Col>
-                <h3>{picture.name}</h3>
+                <h2 className="mb-3">{picture.name}</h2>
               </Col>
             </Row>
             <Row>
               <Col>
-                <span>{picture.price}</span>
+                <span className="font-weight-bold h4">{picture.price}</span>
               </Col>
             </Row>
             <Row>
               <Col>
-                <p>{picture.description}</p>
+                <p className="mt-3 ">{picture.description}</p>
               </Col>
             </Row>
             {context.user && context.user.email === "maia@gmail.com" ? (
               ""
             ) : pictureSelected ? (
               <>
-                <span>Picture added to the cart</span>
-                <button
-                  className="delete-button"
-                  onClick={() =>
-                    context.handleDelete({
-                      id_obra_arte: picture.id,
-                      id_usuario: context.user.userId,
-                    })
-                  }
-                >
-                  Delete
-                </button>
+                <Row>
+                  <Col>
+                    <span className="font-weight">
+                      Picture added to the cart
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mt-3">
+                  <Col>
+                    <button
+                      className="delete-button"
+                      onClick={() =>
+                        context.handleDelete({
+                          id_obra_arte: picture.id,
+                          id_usuario: context.user.userId,
+                        })
+                      }
+                    >
+                      Delete
+                    </button>
+                  </Col>
+                </Row>
               </>
             ) : (
               !picture.sold && (

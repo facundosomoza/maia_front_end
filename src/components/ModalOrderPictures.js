@@ -50,34 +50,10 @@ export default function ModalOrderPictures({
     if (errorPosition !== undefined) {
       Swal.fire({ text: "Hay errores", icon: "error" });
     } else {
-      console.log("Posiciones OK! - > GUARDAR", inputValues);
-
       const newOrders = inputValues.map(({ id, order_picture }) => ({
         id,
         order_picture,
       }));
-
-      console.log({ newOrders });
-
-      /*       inputValues.forEach(({ id, order_picture }) => {
-        fetch(`http://localhost:8001/picturesart/${id}/order_picture`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ newOrder: order_picture }),
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("Picture order updated successfully");
-            } else {
-              console.log("Error updating picture order");
-            }
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      }); */
 
       await fetch(
         `${getConfig().URL_BASE_BACKEND}/picturesart/order_pictures`,
@@ -117,6 +93,7 @@ export default function ModalOrderPictures({
         <Modal.Body>
           <Row>
             {imagesOrder.map((imageOrder, i) => {
+              console.log("inputValues...", imagesOrder, i, inputValues[i]);
               return (
                 <Col key={imageOrder.id} xs={6} sm={4} md={3} lg={2}>
                   <Figure>
@@ -128,7 +105,9 @@ export default function ModalOrderPictures({
 
                     <Form.Control
                       value={
-                        inputValues.length > 0 && inputValues[i].order_picture
+                        inputValues.length > 0 &&
+                        inputValues[i] &&
+                        inputValues[i].order_picture
                       }
                       onChange={(event) =>
                         handleInputValue(event.target.value, imageOrder)

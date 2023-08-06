@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+
+import { useQuill } from "react-quilljs";
+import "quill/dist/quill.snow.css";
 
 import FileRowImage from "./FileRowImage";
-import { Button, Modal, Form, Row, Col, Image } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 
-import { appContext } from "../contexts/appContext";
 import Swal from "sweetalert2";
 
 import { getConfig } from "../utils/config";
@@ -13,6 +15,7 @@ export default function ModalNewPicture({
   handleClose,
   buttonModal,
   modalInfo,
+  reloadPorfolio,
 }) {
   const [newName, setNewName] = useState();
   const [newPrice, setNewPrice] = useState();
@@ -20,15 +23,11 @@ export default function ModalNewPicture({
 
   const [message, setMessage] = useState();
 
-  const context = useContext(appContext);
-
   const urlPicture = `${getConfig().URL_BASE_BACKEND}/images/pictures_art/`;
 
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   useEffect(() => {
-    console.log("modalInfo", modalInfo);
-
     if (modalInfo) {
       setNewName(modalInfo.name);
       setNewPrice(modalInfo.price);
@@ -45,11 +44,7 @@ export default function ModalNewPicture({
         return newImage;
       });
 
-      console.log(images);
-
       setSelectedFiles(images);
-
-      //setPreviewImage(urlPicture + modalInfo.images[0].file_image);
     } else {
       setNewName("");
       setNewPrice("");
@@ -60,13 +55,8 @@ export default function ModalNewPicture({
         { file: "", image: "", order: 3 },
         { file: "", image: "", order: 4 },
       ]);
-      //setPreviewImage("");
     }
   }, [modalInfo]);
-
-  useEffect(() => {
-    console.log("Cambio un archivo", selectedFiles);
-  }, [selectedFiles]);
 
   const handleNewName = (event) => {
     setNewName(event.target.value);
@@ -74,11 +64,6 @@ export default function ModalNewPicture({
 
   const handleNewPrice = (event) => {
     setNewPrice(event.target.value);
-  };
-
-  const handleNewDescription = (event) => {
-    console.log(modalInfo);
-    setNewDescription(event.target.value);
   };
 
   const cmpOrder = (order1, order2) => {
@@ -96,8 +81,6 @@ export default function ModalNewPicture({
   };
 
   const handleNewSave = async () => {
-    console.log({ selectedFiles });
-
     if (validateOrder()) {
       let value = true;
 
@@ -124,24 +107,17 @@ export default function ModalNewPicture({
       }
 
       if (value) {
-        console.log("soy value");
         const formData = new FormData();
 
-        console.log({ selectedFiles });
-
         selectedFiles.forEach(({ file }, i) => {
-          console.log(file);
           formData.append(`file${i + 1}`, file);
         });
 
         selectedFiles.forEach(({ image }, i) => {
-          console.log(image);
           formData.append(`originalFile${i + 1}`, image);
         });
 
         selectedFiles.forEach(({ order, id }, i) => {
-          console.log(`order_${id ? id : i + 1}`, parseInt(order));
-
           formData.append(`order_${id ? id : i + 1}`, parseInt(order));
         });
 
@@ -149,34 +125,30 @@ export default function ModalNewPicture({
         formData.append("newPrice", newPrice);
         formData.append("newDescription", newDescription);
 
-        console.log(formData);
-
         try {
           if (buttonModal === "new") {
             const url = `${getConfig().URL_BASE_BACKEND}/picturesart`;
 
-            const response = await fetch(url, {
+            await fetch(url, {
               method: "post",
               body: formData,
               credentials: "include",
             });
-            console.log(response);
           } else {
             const url = `${getConfig().URL_BASE_BACKEND}/picturesart/${
               modalInfo.id
             }`;
 
-            const response = await fetch(url, {
+            await fetch(url, {
               method: "put",
               body: formData,
 
               credentials: "include",
             });
-            console.log("soy edit 2");
-
-            console.log(response);
           }
-          console.log("soy edit");
+
+          reloadPorfolio();
+
           handleClose();
         } catch (err) {
           console.log("error");
@@ -196,14 +168,37 @@ export default function ModalNewPicture({
   };
 
   const handleFileOrderChange = (index, newOrder) => {
-    console.log("Cambio la imagen de la posicion", index, "orden", newOrder);
-
     const newSelectedFiles = [...selectedFiles];
 
     newSelectedFiles[index].order = newOrder;
 
     setSelectedFiles(newSelectedFiles);
   };
+
+  const modules = {
+    toolbar: [
+      ["bold", "italic"], // toggled buttons
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ size: ["small", false, "large"] }], // custom dropdown
+      //[{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      /*  [{ font: [] }], */
+      [{ align: [] }],
+
+      ["clean"], // remove formatting button
+    ],
+  };
+
+  const { quill, quillRef } = useQuill({ modules });
+
+  useEffect(() => {
+    if (quill) {
+      quill.on("text-change", (delta, oldDelta, source) => {
+        setNewDescription(quill.root.innerHTML);
+      });
+    }
+  }, [quill]);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -249,13 +244,19 @@ export default function ModalNewPicture({
 
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Description</Form.Label>
-            <Form.Control
+
+            <div style={{ width: 468, height: 220, marginBottom: "70px" }}>
+              <div ref={quillRef} />
+            </div>
+
+            {/* <Form.Control
               v
               as="textarea"
               rows={3}
               value={newDescription}
               onChange={handleNewDescription}
-            />
+            /> */}
+
             {newDescription ? "" : message}
           </Form.Group>
         </Form>

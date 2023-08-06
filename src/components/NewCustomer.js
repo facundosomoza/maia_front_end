@@ -6,7 +6,6 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 import { getConfig } from "../utils/config";
 
@@ -79,9 +78,6 @@ const NewCustomer = () => {
 
     console.log({ isPasswordValid });
     if (!isPasswordValid) {
-      setMessage(
-        "Password must include at least 8 characters, one uppercase letter, one lowercase letter, and one number"
-      );
       value = false;
     }
 
@@ -132,38 +128,49 @@ const NewCustomer = () => {
   return (
     <Container>
       <Row className="d-flex align-items-center justify-content-center mt-4">
-        <Col className="col-5">
+        <Col xs={10} md={6}>
           <Form>
-            <Form.Group>
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={handleEmailAddressNew}
-                required
-                className="bg-light"
-              />
-              {emailAddressNew ? "" : message}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                onChange={handlePasswordNew}
-                required
-                className={`bg-light ${isPasswordValid ? "" : "border-danger"}`}
-              />
-
-              <Row>
-                <Col>
-                  <span>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    onChange={handleEmailAddressNew}
+                    required
+                    className="bg-light"
+                  />
+                  {emailAddressNew ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    onChange={handlePasswordNew}
+                    required
+                    className={`bg-light ${
+                      passwordNew && !isPasswordValid ? "is-invalid" : ""
+                    }`}
+                  />
+                  <Form.Text
+                    className={`text-muted ${
+                      passwordNew && !isPasswordValid ? "text-danger" : ""
+                    }`}
+                  >
                     Include a minimum of 8 characters, contain at least one
-                    uppercase letter, one lowercase letter and one number
-                  </span>
-                </Col>
-              </Row>
-
-              {passwordNew ? "" : message}
-            </Form.Group>
+                    uppercase letter, one lowercase letter, and one number
+                  </Form.Text>
+                </Form.Group>
+              </Col>
+            </Row>
           </Form>
           <button className="button-style" onClick={handleRegisterNew}>
             Register

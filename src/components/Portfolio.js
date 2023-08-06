@@ -39,7 +39,6 @@ const Portfolio = () => {
   }/images/pictures_art`;
 
   const loadImages = async () => {
-    console.log("loading...");
     try {
       const url = `${getConfig().URL_BASE_BACKEND}/picturesart`;
 
@@ -49,17 +48,11 @@ const Portfolio = () => {
       });
       const data = await response.json();
 
-      console.log({ data });
-
       setImages(data);
     } catch (error) {
       console.error("Error al cargar las imágenes:", error);
     }
   };
-
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
 
   useEffect(() => {
     loadImages();
@@ -268,6 +261,7 @@ const Portfolio = () => {
         handleClose={handleClose}
         buttonModal={buttonModal}
         modalInfo={modalInfo}
+        reloadPorfolio={loadImages}
       />
 
       <ModalOrderPictures
