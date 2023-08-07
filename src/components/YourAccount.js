@@ -90,9 +90,9 @@ const YourAccount = () => {
       {context.yourAccount === true ? (
         <>
           <Row className="d-flex align-items-center justify-content-center  ">
-            <Row className="mt-4">
-              <Col>
-                <h1 className="font-weight-bold text-dark">
+            <Row className="mt-4 justify-content-center align-items-center">
+              <Col xs={10} sm={10} md={8} lg={12}>
+                <h1 className="font-weight-bold text-dark text-center">
                   You must be logged in to purchase or add products to cart
                 </h1>
               </Col>

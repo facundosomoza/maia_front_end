@@ -81,12 +81,15 @@ const Details = () => {
             </Row>
             <Row>
               <Col>
-                <span className="font-weight-bold h4">{picture.price}</span>
+                <span className="font-weight h5">{picture.price}</span>
               </Col>
             </Row>
             <Row>
               <Col>
-                <p className="mt-3 ">{picture.description}</p>
+                <p
+                  dangerouslySetInnerHTML={{ __html: picture.description }}
+                  className="mt-3 "
+                ></p>
               </Col>
             </Row>
             {context.user && context.user.email === "maia@gmail.com" ? (

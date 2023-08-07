@@ -182,74 +182,55 @@ const Portfolio = () => {
         )}
         <Row className="row-cols-1 row-cols-sm-2">
           {images.map((obraArte) => (
-            <Col className="mb-4 ">
+            <Col key={obraArte.id} className="mb-4">
               <Card className="h-100 p-4 custom-border">
-                {obraArte.images.length > 0 && (
-                  <div style={{ position: "relative" }}>
-                    <Card.Img
-                      onClick={() => handleClick(obraArte)}
-                      variant="top"
-                      style={{ cursor: "pointer" }}
-                      src={`${PICTURES_ART_URL_BASE}/${obraArte.images[0].file_image}`}
-                    />
-                    {obraArte.sold ? (
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "5px",
-                          right: "-60px",
-
-                          backgroundColor:
-                            "linear-gradient(to right, #a18cd1, #fbc2eb, #8c7ca4)",
-                          color: "#8c7ca4",
-                          padding: "4px 8px",
-                          border: "#8c7ca4 solid",
-                          borderRadius: "50%",
-
-                          fontWeight: "bold",
-                          fontSize: "20px",
-                          transform: "translateX(-50%)",
-                        }}
-                      >
-                        <span>SOLD OUT</span>
-                      </div>
-                    ) : null}
+                <div className="d-flex flex-column align-items-center">
+                  <Card.Img
+                    onClick={() => handleClick(obraArte)}
+                    variant="top"
+                    style={{ cursor: "pointer" }}
+                    src={`${PICTURES_ART_URL_BASE}/${
+                      obraArte.images[0].file_image
+                    }?${Math.random()}`}
+                  />
+                  <div className="text-center mt-3">
+                    <Card.Title>{obraArte.name}</Card.Title>
+                    <div>{obraArte.price}</div>
+                  </div>
+                  {obraArte.sold && (
+                    <span
+                      className="badge badge-pill badge-dark mt-2"
+                      style={{ fontSize: "20px" }}
+                    >
+                      SOLD OUT
+                    </span>
+                  )}
+                </div>
+                {context.user && context.user.email === "maia@gmail.com" && (
+                  <div className="card-footer d-flex justify-content-center mt-3">
+                    <Button
+                      variant="success"
+                      className="mx-1"
+                      onClick={() => handleEdit(true, obraArte)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      className="mx-1"
+                      onClick={() => handleDelete(obraArte.id)}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="primary"
+                      className="mx-1"
+                      onClick={() => handleSold(obraArte.id)}
+                    >
+                      Sold
+                    </Button>
                   </div>
                 )}
-                <Card.Body className="d-flex flex-column align-items-center">
-                  <Card.Title className="text-center">
-                    {obraArte.name}
-                  </Card.Title>
-                  <div className="row">
-                    <div className="col text-center">{obraArte.price}</div>
-                  </div>
-
-                  {context.user && context.user.email === "maia@gmail.com" && (
-                    <div className="card-footer d-flex justify-content-center">
-                      <Button
-                        variant="success"
-                        className="mx-1"
-                        onClick={() => handleEdit(true, obraArte)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="danger"
-                        className="mx-1"
-                        onClick={() => handleDelete(obraArte.id)}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="mx-1"
-                        onClick={() => handleSold(obraArte.id)}
-                      >
-                        Sold
-                      </Button>
-                    </div>
-                  )}
-                </Card.Body>
               </Card>
             </Col>
           ))}

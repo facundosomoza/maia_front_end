@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { useQuill } from "react-quilljs";
-import "quill/dist/quill.snow.css";
-
 import FileRowImage from "./FileRowImage";
 import { Button, Modal, Form } from "react-bootstrap";
 
 import Swal from "sweetalert2";
 
 import { getConfig } from "../utils/config";
+import { CKEditor, useCKEditor } from "ckeditor4-react";
 
 export default function ModalNewPicture({
   show,
@@ -175,30 +173,9 @@ export default function ModalNewPicture({
     setSelectedFiles(newSelectedFiles);
   };
 
-  const modules = {
-    toolbar: [
-      ["bold", "italic"], // toggled buttons
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ size: ["small", false, "large"] }], // custom dropdown
-      //[{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-      /*  [{ font: [] }], */
-      [{ align: [] }],
-
-      ["clean"], // remove formatting button
-    ],
+  const handleNewDescription = (event) => {
+    setNewDescription(event.editor.getData());
   };
-
-  const { quill, quillRef } = useQuill({ modules });
-
-  useEffect(() => {
-    if (quill) {
-      quill.on("text-change", (delta, oldDelta, source) => {
-        setNewDescription(quill.root.innerHTML);
-      });
-    }
-  }, [quill]);
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -244,11 +221,9 @@ export default function ModalNewPicture({
 
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Description</Form.Label>
-
-            <div style={{ width: 468, height: 220, marginBottom: "70px" }}>
+            {/*  <div style={{ width: 468, height: 220, marginBottom: "70px" }}>
               <div ref={quillRef} />
-            </div>
-
+            </div> */}
             {/* <Form.Control
               v
               as="textarea"
@@ -256,8 +231,11 @@ export default function ModalNewPicture({
               value={newDescription}
               onChange={handleNewDescription}
             /> */}
-
-            {newDescription ? "" : message}
+            <CKEditor
+              onChange={handleNewDescription}
+              initData={modalInfo && modalInfo.description}
+            />
+            ;{newDescription ? "" : message}
           </Form.Group>
         </Form>
       </Modal.Body>
