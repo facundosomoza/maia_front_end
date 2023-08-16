@@ -194,16 +194,24 @@ const Portfolio = () => {
                     }?${Math.random()}`}
                   />
                   <div className="text-center mt-3">
-                    <Card.Title>{obraArte.name}</Card.Title>
-                    <div>{obraArte.price}</div>
+                    <Card.Title
+                      style={{ fontSize: "25px", fontFamily: "Georgia" }}
+                    >
+                      {obraArte.name}
+                    </Card.Title>
+                    <div style={{ fontSize: "20px", fontFamily: "Georgia" }}>
+                      €{obraArte.price}
+                    </div>
                   </div>
-                  {obraArte.sold && (
+                  {obraArte.sold ? (
                     <span
                       className="badge badge-pill badge-dark mt-2"
                       style={{ fontSize: "20px" }}
                     >
                       SOLD OUT
                     </span>
+                  ) : (
+                    ""
                   )}
                 </div>
                 {context.user && context.user.email === "maia@gmail.com" && (

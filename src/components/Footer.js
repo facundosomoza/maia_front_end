@@ -39,7 +39,10 @@ const Footer = () => {
       </Row>
       <Row className="mt-4">
         <Col xs={12} sm={10} md={8} lg={6} className="offset-md-3 col-md-6">
-          <p className="text-center" style={{ fontSize: "14px" }}>
+          <p
+            className="text-center"
+            style={{ fontSize: "14px", fontFamily: "Georgia" }}
+          >
             All artwork is the sole property of Maia Tsintsadze and is held
             under copyright. The images, artwork, and contents of this website
             may not be copied, collected, or used for personal or professional

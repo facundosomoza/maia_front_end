@@ -158,7 +158,7 @@ const AppContextProvider = ({ children }) => {
       }
 
       Swal.fire({
-        title: "product added",
+        title: "The product was added",
 
         icon: "success",
       });

@@ -71,8 +71,12 @@ const CartDetail = () => {
                     style={{ maxHeight: "100px", padding: 0 }}
                   />
                 </td>
-                <td className="align-middle">{info.name}</td>
-                <td className="align-middle">{info.price}</td>
+                <td style={{ fontFamily: "Georgia" }} className="align-middle">
+                  {info.name}
+                </td>
+                <td style={{ fontFamily: "Georgia" }} className="align-middle">
+                  €{info.price}
+                </td>
                 <td className="align-middle">
                   <button
                     className="delete-button btn btn-md "
@@ -90,8 +94,11 @@ const CartDetail = () => {
         </Table>
         <Row className="text-center align-items-center">
           <Col>
-            <div className="total-amount py-2">
-              Total Amount: {context.totalAmount()}
+            <div
+              style={{ fontSize: "18px", fontFamily: "Georgia" }}
+              className="total-amount py-2"
+            >
+              Total Amount: €{context.totalAmount()}
             </div>
 
             <button className="button-style" onClick={handleCheckOut}>

@@ -17,6 +17,7 @@ import ShippingReturns from "./components/ShippingReturns";
 
 import { Switch, Route } from "react-router-dom";
 import AppContextProvider from "./contexts/appContext";
+import PurchaseSuccess from "./pages/PurchaseSuccess";
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
 
           <Route path="/shipping-returns">
             <ShippingReturns></ShippingReturns>
+          </Route>
+
+          <Route path="/purchase-success">
+            <PurchaseSuccess />
           </Route>
         </Switch>
         <Footer></Footer>

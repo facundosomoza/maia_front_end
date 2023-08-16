@@ -8,6 +8,7 @@ const Contact = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
+  const [messageContact, setMessageContact] = useState("");
   const [message, setMessage] = useState("");
 
   const handleFirstNameChange = (event) => {
@@ -27,12 +28,11 @@ const Contact = () => {
   };
 
   const handleMessageChange = (event) => {
-    setMessage(event.target.value);
+    setMessageContact(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     console.log("HERE...");
 
     let value = true;
@@ -57,7 +57,7 @@ const Contact = () => {
       value = false;
     }
 
-    if (message.trim().length === 0) {
+    if (messageContact.trim().length === 0) {
       setMessage("You must fill this field");
       value = false;
     }
@@ -91,14 +91,14 @@ const Contact = () => {
     setLastName("");
     setEmail("");
     setSubject("");
-    setMessage("");
+    setMessageContact("");
   };
 
   return (
     <>
       <Container className="mt-4 d-flex justify-content-center">
         <div className="w-75 mt-2">
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <Form.Row>
               <Col md={6}>
                 <Form.Group controlId="formFirstName">
@@ -110,8 +110,12 @@ const Contact = () => {
                     className="bg-light"
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
+                  {firstName ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
-                {firstName ? "" : message}
               </Col>
               <Col md={6}>
                 <Form.Group controlId="formLastName">
@@ -123,8 +127,12 @@ const Contact = () => {
                     className="bg-light"
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
+                  {lastName ? (
+                    ""
+                  ) : (
+                    <p className="text-danger font-italic">{message}</p>
+                  )}
                 </Form.Group>
-                {lastName ? "" : message}
               </Col>
             </Form.Row>
 
@@ -137,8 +145,13 @@ const Contact = () => {
                 className="bg-light"
               />
               <Form.Text className="text-muted">Required</Form.Text>
+              {email ? (
+                ""
+              ) : (
+                <p className="text-danger font-italic">{message}</p>
+              )}
             </Form.Group>
-            {email ? "" : message}
+
             <Form.Group controlId="formSubject">
               <Form.Label>Subject:</Form.Label>
               <Form.Control
@@ -148,20 +161,32 @@ const Contact = () => {
                 className="bg-light"
               />
               <Form.Text className="text-muted">Required</Form.Text>
+              {subject ? (
+                ""
+              ) : (
+                <p className="text-danger font-italic">{message}</p>
+              )}
             </Form.Group>
-            {subject ? "" : message}
+
             <Form.Group controlId="formMessage">
               <Form.Label>Message:</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
-                value={message}
+                value={messageContact}
                 onChange={handleMessageChange}
                 className="bg-light"
               />
+              {message ? (
+                ""
+              ) : (
+                <p className="text-danger font-italic">{message}</p>
+              )}
             </Form.Group>
-            {message ? "" : message}
-            <button className="button-style">Submit</button>
+
+            <button onClick={handleSubmit} className="button-style">
+              Submit
+            </button>
           </Form>
         </div>
       </Container>

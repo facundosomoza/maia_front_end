@@ -68,8 +68,8 @@
 }
 
 .button-style {
-  background-image: linear-gradient(to right, #a18cd1, #fbc2eb, #8c7ca4);
-  color: #8c7ca4;
+  background-image: linear-gradient(to right, #c68c53, #e0aa7f, #c68c53);
+  color: white;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
@@ -107,7 +107,7 @@
 }
 
 .badge-primary {
-  background-color: #a18cd1 !important;
+  background-color: #c68c53 !important;
 }
 
 .delete-button {
@@ -139,6 +139,10 @@
 }
 
 a {
-  color: #64518f !important;
+  color: white !important;
   font-weight: 600;
+}
+
+.custom-link {
+  color: #c68c53;
 }

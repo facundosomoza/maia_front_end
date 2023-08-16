@@ -68,7 +68,12 @@ const Navigation = () => {
   return (
     <Navbar expand="lg" className="button-style">
       <Container>
-        <NavLink className="navbar-brand" exact to="/">
+        <NavLink
+          className="navbar-brand"
+          style={{ fontFamily: "Georgia" }}
+          exact
+          to="/"
+        >
           Maia Tsintsadze
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

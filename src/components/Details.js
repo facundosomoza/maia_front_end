@@ -4,8 +4,6 @@ import { Carousel } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 import { useLocation } from "react-router-dom";
 
@@ -31,7 +29,7 @@ const Details = () => {
 
   return (
     <Container fluid>
-      <Row className="mt-4">
+      <Row className="justify-content-center ">
         <Col xs={12} md={8}>
           <Carousel
             interval={null}
@@ -63,30 +61,46 @@ const Details = () => {
             {picture.images.map((pict) => (
               <Carousel.Item>
                 <img
-                  className=""
+                  className="d-block w-100 "
                   src={`${IMAGES_BASE_URL}${pict.file_image}`}
                   alt="First slide"
+                  style={{
+                    objectFit: "contain",
+                    maxHeight: "100%",
+                    marginTop: "10px",
+                  }}
                 />
               </Carousel.Item>
             ))}
           </Carousel>
         </Col>
 
-        <Col xs={12} md={4}>
+        <Col xs={12} md={4} className="  mt-3" style={{ marginTop: "5px" }}>
           <div className="custom-row">
             <Row>
               <Col>
-                <h2 className="mb-3">{picture.name}</h2>
+                <h2
+                  style={{ fontSize: "28px", fontFamily: "Georgia" }}
+                  className="mb-3"
+                >
+                  {picture.name}
+                </h2>
               </Col>
             </Row>
             <Row>
               <Col>
-                <span className="font-weight h5">{picture.price}</span>
+                <span
+                  style={{ fontSize: "22px", fontFamily: "Georgia" }}
+                  className="font-weight h5"
+                >
+                  €{picture.price}
+                </span>
               </Col>
             </Row>
             <Row>
               <Col>
                 <p
+                  style={{ fontFamily: "Georgia" }}
                   dangerouslySetInnerHTML={{ __html: picture.description }}
                   className="mt-3 "
                 ></p>
