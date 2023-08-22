@@ -1,5 +1,5 @@
 import "./App.css";
-import { Element } from "react-scroll";
+
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import Portfolio from "./components/Portfolio";
@@ -50,7 +50,7 @@ function App() {
             <NewCustomer></NewCustomer>
           </Route>
 
-          <Route path="/details">
+          <Route path="/details/:id" component={Details}>
             <Details></Details>
           </Route>
 
@@ -78,6 +78,7 @@ function App() {
             <PurchaseSuccess />
           </Route>
         </Switch>
+
         <Footer></Footer>
       </AppContextProvider>
     </>

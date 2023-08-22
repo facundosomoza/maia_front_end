@@ -147,9 +147,7 @@ const YourAccount = () => {
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title>New Customer</Card.Title>
-                    <NavLink to="/newcustomer" style={{ color: "black" }}>
-                      JOIN
-                    </NavLink>
+                    <NavLink to="/newcustomer">JOIN</NavLink>
 
                     <Card.Text>Create your account</Card.Text>
                   </Card.Body>

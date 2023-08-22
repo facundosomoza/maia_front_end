@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { appContext } from "../contexts/appContext";
 import { getConfig } from "../utils/config";
@@ -17,6 +17,8 @@ const Details = () => {
 
   const context = useContext(appContext);
 
+  const { id } = useParams();
+
   const location = useLocation();
 
   const picture = location.state;
@@ -26,6 +28,8 @@ const Details = () => {
   console.log(picture);
 
   const pictureSelected = context.checkPictureSelected(picture.id);
+
+  console.log({ pictureSelected });
 
   return (
     <Container fluid>
@@ -108,7 +112,7 @@ const Details = () => {
             </Row>
             {context.user && context.user.email === "maia@gmail.com" ? (
               ""
-            ) : pictureSelected ? (
+            ) : context.user && pictureSelected ? (
               <>
                 <Row>
                   <Col>

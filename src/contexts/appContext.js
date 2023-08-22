@@ -58,6 +58,7 @@ const AppContextProvider = ({ children }) => {
   };
 
   const checkPictureSelected = (idObraArteBuscada) => {
+    console.log("CART...", cart);
     const obraArteEncontrada = cart.find((item) => {
       if (item.id_obra_arte === idObraArteBuscada) {
         return true;

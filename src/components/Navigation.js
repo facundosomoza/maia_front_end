@@ -20,9 +20,6 @@ const Navigation = () => {
   const history = useHistory();
 
   const handleLogOut = async () => {
-    context.setCart([]);
-    context.checkPictureSelected([]);
-
     const url = `${getConfig().URL_BASE_BACKEND}/auth/logout`;
 
     const response = await fetch(url, {
@@ -33,11 +30,21 @@ const Navigation = () => {
     if (response.status === 200) {
       context.loginUser(false);
       context.changeUser(null);
+
+      context.setCart([]);
+      console.log("Vaciando el carrito...");
+
+      context.checkPictureSelected([]);
+
       history.push("/");
     } else {
       console.log("error");
     }
   };
+
+  useEffect(() => {
+    console.log("CARRITO...", context.cart);
+  }, [context.cart]);
 
   const checkLogged = async () => {
     const url = `${getConfig().URL_BASE_BACKEND}/auth/check_logged`;
@@ -69,7 +76,7 @@ const Navigation = () => {
     <Navbar expand="lg" className="button-style">
       <Container>
         <NavLink
-          className="navbar-brand"
+          className="navbar-brand white-link"
           style={{ fontFamily: "Georgia" }}
           exact
           to="/"
@@ -79,13 +86,13 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <NavLink className="nav-link" to="/portfolio">
+            <NavLink className="nav-link white-link" to="/portfolio">
               Portfolio
             </NavLink>
-            <NavLink to="/biography" className="nav-link ">
+            <NavLink to="/biography" className="nav-link white-link">
               About
             </NavLink>
-            <NavLink className="nav-link" to="/contact">
+            <NavLink className="nav-link white-link" to="/contact">
               Contact
             </NavLink>
           </Nav>

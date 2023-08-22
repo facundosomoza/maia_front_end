@@ -234,6 +234,7 @@ export default function ModalNewPicture({
             <CKEditor
               onChange={handleNewDescription}
               initData={modalInfo && modalInfo.description}
+              style={{ width: "500px", height: "300px" }}
             />
             ;{newDescription ? "" : message}
           </Form.Group>

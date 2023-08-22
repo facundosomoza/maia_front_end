@@ -15,6 +15,8 @@ import { appContext } from "../contexts/appContext";
 
 import { useHistory, useLocation } from "react-router-dom";
 
+import emailVerifier from "email-verifier";
+
 const NewCustomer = () => {
   const history = useHistory();
 
@@ -61,7 +63,31 @@ const NewCustomer = () => {
   };
 
   const handleRegisterNew = () => {
-    registerNewCustomer();
+    const isValidEmailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+      emailAddressNew
+    );
+
+    if (!isValidEmailFormat) {
+      setMessage("Invalid email format");
+    } else {
+      const verifier = emailVerifier(emailAddressNew, {
+        checkCatchAll: true,
+        checkDisposable: true,
+      });
+
+      verifier.verify((err, data) => {
+        if (err) {
+          console.error("Error verifying email:", err);
+          setMessage("Error verifying email");
+        } else {
+          if (data.smtpCheck === "false") {
+            setMessage("Invalid email provider");
+          } else {
+            registerNewCustomer();
+          }
+        }
+      });
+    }
   };
 
   const registerNewCustomer = async () => {
@@ -120,7 +146,14 @@ const NewCustomer = () => {
           Swal.fire(dataError.message);
         }
       } catch (err) {
-        Swal.fire("User or Password are not valid");
+        Swal.fire({
+          text: "User or Password are not valid",
+          customClass: {
+            container: "my-swal-container",
+            popup: "my-swal-popup",
+            content: "my-swal-content",
+          },
+        });
       }
     }
   };

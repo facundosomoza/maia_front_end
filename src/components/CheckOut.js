@@ -81,6 +81,8 @@ const ButtonWrapper = ({ showSpinner, userData }) => {
 
       console.log(orderData, "approved!");
 
+      context.setCart([]);
+
       history.push("/purchase-success");
     } else {
       Swal.fire({ text: "Error", icon: "error" });

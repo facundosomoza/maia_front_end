@@ -180,7 +180,7 @@ const ShippingReturns = () => {
             </p>
             <p>Maia Tsintsadze</p>
             <p>12 Riverston Gardens D07 Dublin</p>
-            <p>E-Mailadresse: XXXXXXXXXXXXXXX</p>
+            <p>E-Mailadress: admin@maiatsadzeart.com</p>
             <p>
               Hereby I/we (*) revoke the contract concluded by me/us (*)
               regarding the purchase of the following goods (*)/ the rendering

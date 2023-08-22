@@ -15,7 +15,7 @@ import { appContext } from "../contexts/appContext";
 
 import { getConfig } from "../utils/config";
 
-import { useHistory } from "react-router";
+import { useHistory, Link } from "react-router-dom";
 import ModalNewPicture from "./ModalNewPicture";
 import Swal from "sweetalert2";
 
@@ -183,63 +183,65 @@ const Portfolio = () => {
         <Row className="row-cols-1 row-cols-sm-2">
           {images.map((obraArte) => (
             <Col key={obraArte.id} className="mb-4">
-              <Card className="h-100 p-4 custom-border">
-                <div className="d-flex flex-column align-items-center">
-                  <Card.Img
-                    onClick={() => handleClick(obraArte)}
-                    variant="top"
-                    style={{ cursor: "pointer" }}
-                    src={`${PICTURES_ART_URL_BASE}/${
-                      obraArte.images[0].file_image
-                    }?${Math.random()}`}
-                  />
-                  <div className="text-center mt-3">
-                    <Card.Title
-                      style={{ fontSize: "25px", fontFamily: "Georgia" }}
-                    >
-                      {obraArte.name}
-                    </Card.Title>
-                    <div style={{ fontSize: "20px", fontFamily: "Georgia" }}>
-                      €{obraArte.price}
+              <Link to={`/details/${obraArte.id}`} className="link-portfolio">
+                <Card className="h-100 p-4 custom-border">
+                  <div className="d-flex flex-column align-items-center">
+                    <Card.Img
+                      onClick={() => handleClick(obraArte)}
+                      variant="top"
+                      style={{ cursor: "pointer" }}
+                      src={`${PICTURES_ART_URL_BASE}/${
+                        obraArte.images[0].file_image
+                      }?${Math.random()}`}
+                    />
+                    <div className="text-center mt-3">
+                      <Card.Title
+                        style={{ fontSize: "25px", fontFamily: "Georgia" }}
+                      >
+                        {obraArte.name}
+                      </Card.Title>
+                      <div style={{ fontSize: "20px", fontFamily: "Georgia" }}>
+                        €{obraArte.price}
+                      </div>
                     </div>
+                    {obraArte.sold ? (
+                      <span
+                        className="badge badge-pill badge-dark mt-2"
+                        style={{ fontSize: "20px" }}
+                      >
+                        SOLD OUT
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </div>
-                  {obraArte.sold ? (
-                    <span
-                      className="badge badge-pill badge-dark mt-2"
-                      style={{ fontSize: "20px" }}
-                    >
-                      SOLD OUT
-                    </span>
-                  ) : (
-                    ""
+                  {context.user && context.user.email === "maia@gmail.com" && (
+                    <div className="card-footer d-flex justify-content-center mt-3">
+                      <Button
+                        variant="success"
+                        className="mx-1"
+                        onClick={() => handleEdit(true, obraArte)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="danger"
+                        className="mx-1"
+                        onClick={() => handleDelete(obraArte.id)}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        variant="primary"
+                        className="mx-1"
+                        onClick={() => handleSold(obraArte.id)}
+                      >
+                        Sold
+                      </Button>
+                    </div>
                   )}
-                </div>
-                {context.user && context.user.email === "maia@gmail.com" && (
-                  <div className="card-footer d-flex justify-content-center mt-3">
-                    <Button
-                      variant="success"
-                      className="mx-1"
-                      onClick={() => handleEdit(true, obraArte)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      className="mx-1"
-                      onClick={() => handleDelete(obraArte.id)}
-                    >
-                      Delete
-                    </Button>
-                    <Button
-                      variant="primary"
-                      className="mx-1"
-                      onClick={() => handleSold(obraArte.id)}
-                    >
-                      Sold
-                    </Button>
-                  </div>
-                )}
-              </Card>
+                </Card>
+              </Link>
             </Col>
           ))}
         </Row>
