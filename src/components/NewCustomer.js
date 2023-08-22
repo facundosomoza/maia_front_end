@@ -15,7 +15,7 @@ import { appContext } from "../contexts/appContext";
 
 import { useHistory, useLocation } from "react-router-dom";
 
-import emailVerifier from "email-verifier";
+//import emailVerifier from "email-verifier";
 
 const NewCustomer = () => {
   const history = useHistory();
@@ -70,12 +70,11 @@ const NewCustomer = () => {
     if (!isValidEmailFormat) {
       setMessage("Invalid email format");
     } else {
-      const verifier = emailVerifier(emailAddressNew, {
+      /*   const verifier = emailVerifier(emailAddressNew, {
         checkCatchAll: true,
         checkDisposable: true,
-      });
-
-      verifier.verify((err, data) => {
+      }); */
+      /* verifier.verify((err, data) => {
         if (err) {
           console.error("Error verifying email:", err);
           setMessage("Error verifying email");
@@ -86,7 +85,7 @@ const NewCustomer = () => {
             registerNewCustomer();
           }
         }
-      });
+      }); */
     }
   };
 
