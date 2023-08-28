@@ -50,9 +50,7 @@ function App() {
             <NewCustomer></NewCustomer>
           </Route>
 
-          <Route path="/details/:id" component={Details}>
-            <Details></Details>
-          </Route>
+          <Route path="/details/:id" component={Details} />
 
           <Route path="/checkout">
             <CheckOut></CheckOut>

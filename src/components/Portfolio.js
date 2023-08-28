@@ -58,19 +58,36 @@ const Portfolio = () => {
     loadImages();
   }, []);
 
-  const handleClick = (dataImage) => {
+  /*   const handleClick = (dataImage) => {
     const { id } = dataImage;
     const updatedImage = images.find((image) => image.id === id);
     const updatedDataImage = { ...dataImage, sold: updatedImage.sold };
 
+    console.log("Pasando a details...", updatedDataImage);
+
     history.push("/details", updatedDataImage);
-  };
+  }; */
 
   const handleDelete = async (productId) => {
-    console.log("delete", productId);
+    const pictureToDeleteResponse = await fetch(
+      `${getConfig().URL_BASE_BACKEND}/picturesart/${productId}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const pictureToDelete = await pictureToDeleteResponse.json();
+
+    let deleteMessage = "Are you sure?";
+
+    if (pictureToDelete.sold) {
+      deleteMessage = "Already sold, are you sure?";
+    }
+
     try {
       Swal.fire({
-        title: "Are you sure?",
+        title: deleteMessage,
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
@@ -187,7 +204,7 @@ const Portfolio = () => {
                 <Card className="h-100 p-4 custom-border">
                   <div className="d-flex flex-column align-items-center">
                     <Card.Img
-                      onClick={() => handleClick(obraArte)}
+                      /*  onClick={() => handleClick(obraArte)} */
                       variant="top"
                       style={{ cursor: "pointer" }}
                       src={`${PICTURES_ART_URL_BASE}/${
@@ -220,21 +237,30 @@ const Portfolio = () => {
                       <Button
                         variant="success"
                         className="mx-1"
-                        onClick={() => handleEdit(true, obraArte)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleEdit(true, obraArte);
+                        }}
                       >
                         Edit
                       </Button>
                       <Button
                         variant="danger"
                         className="mx-1"
-                        onClick={() => handleDelete(obraArte.id)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleDelete(obraArte.id);
+                        }}
                       >
                         Delete
                       </Button>
                       <Button
                         variant="primary"
                         className="mx-1"
-                        onClick={() => handleSold(obraArte.id)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleSold(obraArte.id);
+                        }}
                       >
                         Sold
                       </Button>
