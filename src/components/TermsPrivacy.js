@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import { appContext } from "../contexts/appContext";
+
 const TermsPrivacy = () => {
-  useEffect(() => {
-    console.log("hola...terms...");
-  }, []);
+  const context = useContext(appContext);
+
+  /*   useEffect(() => {
+    context.handleCheckFooter(false);
+  }, []); */
 
   return (
     <Container>

@@ -13,6 +13,10 @@ import { getConfig } from "../utils/config";
 const Home = () => {
   const context = useContext(appContext);
 
+  useEffect(() => {
+    context.handleCheckFooter("");
+  }, []);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const [homeImage, setHomeImage] = useState("");

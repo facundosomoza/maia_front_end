@@ -18,6 +18,9 @@ import ShippingReturns from "./components/ShippingReturns";
 import { Switch, Route } from "react-router-dom";
 import AppContextProvider from "./contexts/appContext";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
+import ResetPassword from "./components/ResetPassword";
+import EmailSent from "./components/EmailSent";
+import EmailValidationSuccess from "./components/EmailValidationSuccess";
 
 function App() {
   return (
@@ -53,7 +56,7 @@ function App() {
           <Route path="/details/:id" component={Details} />
 
           <Route path="/checkout">
-            <CheckOut></CheckOut>
+            <CheckOut />
           </Route>
 
           <Route path="/cartdetail">
@@ -74,6 +77,18 @@ function App() {
 
           <Route path="/purchase-success">
             <PurchaseSuccess />
+          </Route>
+
+          <Route path="/reset-password">
+            <ResetPassword />
+          </Route>
+
+          <Route path="/email-sent">
+            <EmailSent />
+          </Route>
+
+          <Route path="/email-confirmation-success">
+            <EmailValidationSuccess />
           </Route>
         </Switch>
 

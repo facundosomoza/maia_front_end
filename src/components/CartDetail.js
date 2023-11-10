@@ -21,6 +21,10 @@ const CartDetail = () => {
   const history = useHistory();
 
   useEffect(() => {
+    context.handleCheckFooter("");
+  }, []);
+
+  useEffect(() => {
     context.getInfo();
   }, []);
 

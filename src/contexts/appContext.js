@@ -12,11 +12,19 @@ const AppContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [yourAccount, setYourAccount] = useState(false);
 
+  const [checkLoggedFinished, setCheckLoggedFinished] = useState(false);
+
+  const [checkFooter, setCheckFooter] = useState("");
+
   const history = useHistory();
 
-  useEffect(() => {
-    console.log("Cambio yourAccount", yourAccount);
-  }, [yourAccount]);
+  const handleCheckLoggedFinished = (finished) => {
+    setCheckLoggedFinished(finished);
+  };
+
+  const handleCheckFooter = (data) => {
+    setCheckFooter(data);
+  };
 
   const changeUser = (loggedUser) => {
     console.log(loggedUser);
@@ -58,18 +66,16 @@ const AppContextProvider = ({ children }) => {
   };
 
   const checkPictureSelected = (idObraArteBuscada) => {
-    console.log("CART...", cart);
+    console.log("CART...", cart, idObraArteBuscada);
     const obraArteEncontrada = cart.find((item) => {
-      if (item.id_obra_arte === idObraArteBuscada) {
-        return true;
-      } else {
-        return false;
-      }
+      return item.id_obra_arte === parseInt(idObraArteBuscada);
     });
 
     if (obraArteEncontrada) {
+      console.log(obraArteEncontrada, "ENCONTRADA");
       return true;
     } else {
+      console.log(obraArteEncontrada, "NO ENCONTRADA");
       return false;
     }
   };
@@ -160,8 +166,9 @@ const AppContextProvider = ({ children }) => {
 
       Swal.fire({
         title: "The product was added",
-
         icon: "success",
+        color: "#c68c53",
+        confirmButtonColor: "#c68c53",
       });
     } else {
       console.log("false");
@@ -193,6 +200,10 @@ const AppContextProvider = ({ children }) => {
         yourAccount,
         handleAddToCart,
         totalAmount,
+        handleCheckLoggedFinished,
+        checkLoggedFinished,
+        handleCheckFooter,
+        checkFooter,
       }}
     >
       {children}

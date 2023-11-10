@@ -47,6 +47,8 @@ const Navigation = () => {
   }, [context.cart]);
 
   const checkLogged = async () => {
+    context.handleCheckLoggedFinished(false);
+
     const url = `${getConfig().URL_BASE_BACKEND}/auth/check_logged`;
 
     const response = await fetch(url, {
@@ -66,6 +68,8 @@ const Navigation = () => {
       console.log("USUARIO NO LOGUEADO");
       context.loginUser(false);
     }
+
+    context.handleCheckLoggedFinished(true);
   };
 
   useEffect(() => {
@@ -90,7 +94,7 @@ const Navigation = () => {
               Portfolio
             </NavLink>
             <NavLink to="/biography" className="nav-link white-link">
-              About
+              Biography
             </NavLink>
             <NavLink className="nav-link white-link" to="/contact">
               Contact

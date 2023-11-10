@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
+import { appContext } from "../contexts/appContext";
 import { getConfig } from "../utils/config";
 
 const Contact = () => {
@@ -10,6 +11,11 @@ const Contact = () => {
   const [subject, setSubject] = useState("");
   const [messageContact, setMessageContact] = useState("");
   const [message, setMessage] = useState("");
+  const context = useContext(appContext);
+
+  useEffect(() => {
+    context.handleCheckFooter("");
+  }, []);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);

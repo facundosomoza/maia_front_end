@@ -22,6 +22,10 @@ import Swal from "sweetalert2";
 const Portfolio = () => {
   const context = useContext(appContext);
 
+  useEffect(() => {
+    context.handleCheckFooter("");
+  }, []);
+
   const history = useHistory();
 
   const [images, setImages] = useState([]);
@@ -217,7 +221,10 @@ const Portfolio = () => {
                       >
                         {obraArte.name}
                       </Card.Title>
-                      <div style={{ fontSize: "20px", fontFamily: "Georgia" }}>
+                      <div
+                        className="price"
+                        style={{ fontSize: "20px", fontFamily: "Georgia" }}
+                      >
                         €{obraArte.price}
                       </div>
                     </div>

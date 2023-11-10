@@ -7,7 +7,7 @@ const config = {
   },
   prod: {
     PORT: 443,
-    URL_BASE_BACKEND: "https://maiatsadzeart.com:443",
+    URL_BASE_BACKEND: "https://maiatsintsadzeart.com:443",
   },
 };
 

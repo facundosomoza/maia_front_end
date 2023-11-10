@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useContext, useState, useEffect } from "react";
+import { appContext } from "../contexts/appContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,6 +9,12 @@ import { getConfig } from "../utils/config";
 
 const Biography = () => {
   const [biographyImages, setBiographyImages] = useState([]);
+
+  const context = useContext(appContext);
+
+  useEffect(() => {
+    context.handleCheckFooter("");
+  }, []);
 
   useEffect(() => {
     const fetchBiographyImages = async () => {

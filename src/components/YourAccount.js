@@ -23,6 +23,10 @@ const YourAccount = () => {
 
   const context = useContext(appContext);
 
+  useEffect(() => {
+    context.handleCheckFooter("");
+  }, []);
+
   const [emailEx, setEmailEx] = useState("");
   const [passwordEx, setPasswordEx] = useState("");
 
@@ -85,6 +89,12 @@ const YourAccount = () => {
     }
   };
 
+  useEffect(() => {
+    if (context.loggedUser) {
+      history.push("/portfolio");
+    }
+  }, [context.loggedUser]);
+
   return (
     <Container className="d-flex align-items-center justify-content-center ">
       {context.yourAccount === true ? (
@@ -132,7 +142,7 @@ const YourAccount = () => {
                             <p className="text-danger font-italic">{message}</p>
                           )}
                         </Form.Group>
-                        <Link to="/forgot-password">
+                        <Link className="forgotten" to="/forgot-password">
                           Forgotten Your Password?
                         </Link>
                       </Form>
@@ -147,7 +157,9 @@ const YourAccount = () => {
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title>New Customer</Card.Title>
-                    <NavLink to="/newcustomer">JOIN</NavLink>
+                    <NavLink className="card-join" to="/newcustomer">
+                      JOIN
+                    </NavLink>
 
                     <Card.Text>Create your account</Card.Text>
                   </Card.Body>
@@ -190,7 +202,9 @@ const YourAccount = () => {
                     ) : (
                       <p className="text-danger font-italic">{message}</p>
                     )}
-                    <Link to="/forgot-password">Forgotten Your Password?</Link>
+                    <Link className="forgotten" to="/forgot-password">
+                      Forgotten Your Password?
+                    </Link>
                   </Form>
                 </Card.Text>
                 <button className="button-style" onClick={handleContinue}>
@@ -203,7 +217,9 @@ const YourAccount = () => {
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>New Customer</Card.Title>
-                <NavLink to="/newcustomer">JOIN</NavLink>
+                <NavLink className="card-join" to="/newcustomer">
+                  JOIN
+                </NavLink>
                 <Card.Text>Create your account</Card.Text>
               </Card.Body>
             </Card>

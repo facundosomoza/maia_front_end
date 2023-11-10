@@ -1,46 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+
+import { appContext } from "../contexts/appContext";
 
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 
 import { getConfig } from "../utils/config";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function ForgotPassword() {
-  /*
+  const context = useContext(appContext);
+  const history = useHistory();
+
   const [emailCustomer, setEmailCustomer] = useState("");
 
   const handleEmailChange = (event) => {
     setEmailCustomer(event.target.value);
   };
 
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
     const url = `${getConfig().URL_BASE_BACKEND}/forgot_password`;
 
-    fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email: emailCustomer }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.message);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (response.status === 200) {
+      Swal.fire({ text: data.message, icon: "success" });
+    } else {
+      Swal.fire({ text: data.message, icon: "error" });
+    }
   };
-*/
-  const handleFormSubmit = () => {
-    console.log("hola");
-  };
+
+  useEffect(() => {
+    if (context.loggedUser) {
+      history.push("/portfolio");
+    }
+  }, [context.loggedUser]);
+
   return (
     <Container>
       <Row className="mt-4 d-flex justify-content-center">
@@ -63,7 +74,13 @@ export default function ForgotPassword() {
               <Col>
                 <Form.Group controlId="formEmail">
                   <Form.Label>Email address:</Form.Label>
-                  <Form.Control type="email" required className="bg-light" />
+                  <Form.Control
+                    value={emailCustomer}
+                    onChange={handleEmailChange}
+                    type="email"
+                    required
+                    className="bg-light"
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -75,7 +92,9 @@ export default function ForgotPassword() {
                 >
                   Reset Password
                 </button>
-                <Link to="/youraccount">Cancel</Link>
+                <Link className="card-title" to="/youraccount">
+                  Cancel
+                </Link>
               </Col>
             </Row>
           </Form>

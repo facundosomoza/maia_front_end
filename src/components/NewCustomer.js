@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 
 import { appContext } from "../contexts/appContext";
 
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 //import emailVerifier from "email-verifier";
 
@@ -31,22 +31,8 @@ const NewCustomer = () => {
 
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
-  const [existingEmails, setExistingEmails] = useState([]);
-
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    const fetchExistingEmails = async () => {
-      try {
-        const response = await fetch(`${getConfig().URL_BASE_BACKEND}/users`);
-        const data = await response.json();
-        setExistingEmails(data.email);
-      } catch (error) {
-        console.log("Error fetching existing emails", error);
-      }
-    };
-    fetchExistingEmails();
-  }, []);
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [passwordErrorMessage, setpasswordErrorMessage] = useState("");
 
   const handleEmailAddressNew = (event) => {
     setEmailAddressNew(event.target.value);
@@ -58,104 +44,97 @@ const NewCustomer = () => {
     setIsPasswordValid(checkPasswordValidity(newPassword));
   };
 
-  const checkExistingEmail = (email) => {
-    return existingEmails.includes(email);
+  const checkExistingEmail = async () => {
+    const url = `${
+      getConfig().URL_BASE_BACKEND
+    }/users/verify_email/${emailAddressNew}`;
+
+    const response = await fetch(url);
+
+    return response.status === 200;
   };
 
-  const handleRegisterNew = () => {
+  const handleRegisterNew = async () => {
+    let isValidData = true;
+
     const isValidEmailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
       emailAddressNew
     );
 
     if (!isValidEmailFormat) {
-      setMessage("Invalid email format");
+      setEmailErrorMessage("Invalid email format");
+      isValidData = false;
     } else {
-      /*   const verifier = emailVerifier(emailAddressNew, {
-        checkCatchAll: true,
-        checkDisposable: true,
-      }); */
-      /* verifier.verify((err, data) => {
-        if (err) {
-          console.error("Error verifying email:", err);
-          setMessage("Error verifying email");
-        } else {
-          if (data.smtpCheck === "false") {
-            setMessage("Invalid email provider");
-          } else {
-            registerNewCustomer();
-          }
+      setEmailErrorMessage("");
+    }
+
+    if (!isPasswordValid) {
+      setpasswordErrorMessage("Password is not valid");
+      isValidData = false;
+    } else {
+      setpasswordErrorMessage("");
+    }
+
+    if (isValidData) {
+      const emailNotExists = await checkExistingEmail();
+
+      if (emailNotExists) {
+        console.log("Continuar...");
+
+        registerNewCustomer();
+
+        try {
+        } catch (erorr) {
+          console.log("Error al verificar el email");
         }
-      }); */
+      } else {
+        console.log("El email ya esta en registrado");
+      }
     }
   };
 
   const registerNewCustomer = async () => {
-    let value = true;
+    try {
+      const url = `${getConfig().URL_BASE_BACKEND}/users`;
 
-    if (emailAddressNew.trim().length === 0) {
-      setMessage("You must complete the field");
-      value = false;
-    }
-    if (passwordNew.trim().length === 0) {
-      setMessage("You must complete the field");
-      value = false;
-    }
+      const dataUser = {
+        email: emailAddressNew,
+        password: passwordNew,
+      };
 
-    console.log({ isPasswordValid });
-    if (!isPasswordValid) {
-      value = false;
-    }
+      const response = await fetch(url, {
+        method: "post",
+        body: JSON.stringify(dataUser),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
 
-    if (checkExistingEmail(emailAddressNew)) {
-      setMessage("Email already exists");
-      value = false;
-    }
-    if (value) {
-      try {
-        const url = `${getConfig().URL_BASE_BACKEND}/users`;
+      console.log(response);
 
-        const dataUser = {
-          email: emailAddressNew,
-          password: passwordNew,
-        };
+      if (response.status === 200) {
+        history.push("/email-sent");
+      } else if (response.status === 500) {
+        const dataError = await response.json();
 
-        const response = await fetch(url, {
-          method: "post",
-          body: JSON.stringify(dataUser),
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
-
-        console.log(response);
-
-        if (response.status === 200) {
-          const dataNewUser = await response.json();
-
-          context.changeUser({
-            email: emailAddressNew,
-            userId: dataNewUser.insertId,
-          });
-
-          console.log("data user new customer", dataNewUser);
-          context.loginUser(true);
-          history.push("/");
-        } else if (response.status === 500) {
-          const dataError = await response.json();
-
-          Swal.fire(dataError.message);
-        }
-      } catch (err) {
-        Swal.fire({
-          text: "User or Password are not valid",
-          customClass: {
-            container: "my-swal-container",
-            popup: "my-swal-popup",
-            content: "my-swal-content",
-          },
-        });
+        Swal.fire(dataError.message);
       }
+    } catch (err) {
+      Swal.fire({
+        text: "Registration fail",
+        customClass: {
+          container: "my-swal-container",
+          popup: "my-swal-popup",
+          content: "my-swal-content",
+        },
+      });
     }
   };
+
+  useEffect(() => {
+    if (context.loggedUser) {
+      history.push("/portfolio");
+    }
+  }, [context.loggedUser]);
 
   return (
     <Container>
@@ -171,11 +150,12 @@ const NewCustomer = () => {
                     onChange={handleEmailAddressNew}
                     required
                     className="bg-light"
+                    value={emailAddressNew}
                   />
-                  {emailAddressNew ? (
-                    ""
-                  ) : (
-                    <p className="text-danger font-italic">{message}</p>
+                  {emailErrorMessage && (
+                    <Form.Text className="text-error">
+                      {emailErrorMessage}
+                    </Form.Text>
                   )}
                 </Form.Group>
               </Col>
@@ -192,6 +172,12 @@ const NewCustomer = () => {
                       passwordNew && !isPasswordValid ? "is-invalid" : ""
                     }`}
                   />
+                  {passwordErrorMessage && (
+                    <Form.Text className="text-error">
+                      {passwordErrorMessage}
+                    </Form.Text>
+                  )}
+
                   <Form.Text
                     className={`text-muted ${
                       passwordNew && !isPasswordValid ? "text-danger" : ""
@@ -204,9 +190,12 @@ const NewCustomer = () => {
               </Col>
             </Row>
           </Form>
-          <button className="button-style" onClick={handleRegisterNew}>
+          <button className="button-style mr-2" onClick={handleRegisterNew}>
             Register
           </button>
+          <Link className="card-title" to="/youraccount">
+            Cancel
+          </Link>
         </Col>
       </Row>
     </Container>

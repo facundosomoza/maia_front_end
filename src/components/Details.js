@@ -12,7 +12,7 @@ import { getConfig } from "../utils/config";
 
 const Details = () => {
   const [picture, setPicture] = useState(null);
-  const [pictureSelected, setPictureSelected] = useState(null);
+  //const [pictureSelected, setPictureSelected] = useState(null);
 
   const IMAGES_BASE_URL = `${
     getConfig().URL_BASE_BACKEND
@@ -22,6 +22,8 @@ const Details = () => {
     const currentUrl = window.location.href;
 
     const id = currentUrl.split("/").pop();
+
+    console.log("GET ID...", { id });
 
     return id;
   };
@@ -56,8 +58,8 @@ const Details = () => {
   //console.log("RECIBIDO....", location);
 
   //REFACTOR
-  /*   const sold = picture.sold;
-  const pictureSelected = context.checkPictureSelected(picture.id); */
+  /*   const sold = picture.sold;*/
+  const pictureSelected = context.checkPictureSelected(getId());
 
   useEffect(() => {
     console.log("GET PICTURE...");
@@ -101,7 +103,7 @@ const Details = () => {
               {picture.images.map((pict) => (
                 <Carousel.Item>
                   <img
-                    className="d-block w-100 "
+                    className="d-block w-100 mt-3"
                     src={`${IMAGES_BASE_URL}${pict.file_image}`}
                     alt="First slide"
                     style={{
@@ -137,17 +139,17 @@ const Details = () => {
                   </span>
                 </Col>
               </Row>
-              <Row>
-                <Col>
-                  <p
-                    style={{ fontFamily: "Georgia" }}
-                    dangerouslySetInnerHTML={{ __html: picture.description }}
-                    className="mt-3 "
-                  ></p>
-                </Col>
-              </Row>
+
               {context.user && context.user.email === "maia@gmail.com" ? (
-                ""
+                <Row>
+                  <Col>
+                    <p
+                      style={{ fontFamily: "Georgia" }}
+                      dangerouslySetInnerHTML={{ __html: picture.description }}
+                      className="mt-3 html-details-description"
+                    ></p>
+                  </Col>
+                </Row>
               ) : context.user && pictureSelected ? (
                 <>
                   <Row>
@@ -174,16 +176,29 @@ const Details = () => {
                   </Row>
                 </>
               ) : (
-                !picture.sold && (
-                  <button
-                    className="button-style"
-                    onClick={() =>
-                      context.handleAddToCart(picture, "portfolio")
-                    }
-                  >
-                    Add to Cart
-                  </button>
-                )
+                <>
+                  {!picture.sold && (
+                    <button
+                      className="button-style mt-3"
+                      onClick={() =>
+                        context.handleAddToCart(picture, "portfolio")
+                      }
+                    >
+                      Add to Cart
+                    </button>
+                  )}
+                  <Row>
+                    <Col>
+                      <p
+                        style={{ fontFamily: "Georgia" }}
+                        dangerouslySetInnerHTML={{
+                          __html: picture.description,
+                        }}
+                        className="mt-3 html-details-description"
+                      ></p>
+                    </Col>
+                  </Row>
+                </>
               )}
             </div>
           </Col>

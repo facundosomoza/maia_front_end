@@ -1,28 +1,29 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from 'react';
 
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
+} from '@paypal/react-paypal-js';
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Table from "react-bootstrap/Table";
-import Image from "react-bootstrap/Image";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Image from 'react-bootstrap/Image';
 
-import { getConfig } from "../utils/config";
+import { getConfig } from '../utils/config';
 
-import { appContext } from "../contexts/appContext";
+import { appContext } from '../contexts/appContext';
 
-import usePaypal from "./hooks/usePaypal";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+
+import logoPaypal from '../assets/images/logo_paypal.png';
 
 // Custom component to wrap the PayPalButtons and show loading spinner
 const ButtonWrapper = ({ showSpinner, userData }) => {
@@ -35,16 +36,16 @@ const ButtonWrapper = ({ showSpinner, userData }) => {
   const context = useContext(appContext);
   //const { createOrder, onApprove } = usePaypal();
 
-  console.log("Carrito....", context.cart);
+  console.log('Carrito....', context.cart);
 
   const history = useHistory();
 
   function createOrder() {
     return fetch(`${getConfig().URL_BASE_BACKEND}/paypal/createorder`, {
-      method: "POST",
-      credentials: "include",
+      method: 'POST',
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
 
       body: JSON.stringify({
@@ -63,10 +64,10 @@ const ButtonWrapper = ({ showSpinner, userData }) => {
     const response = await fetch(
       `${getConfig().URL_BASE_BACKEND}/paypal/capture-order`,
       {
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           orderID: data.orderID,
@@ -74,18 +75,18 @@ const ButtonWrapper = ({ showSpinner, userData }) => {
       }
     );
 
-    console.log("STATUS", response.status);
+    console.log('STATUS', response.status);
 
     if (response.status === 201) {
       const orderData = await response.json();
 
-      console.log(orderData, "approved!");
+      console.log(orderData, 'approved!');
 
       context.setCart([]);
 
-      history.push("/purchase-success");
+      history.push('/purchase-success');
     } else {
-      Swal.fire({ text: "Error", icon: "error" });
+      Swal.fire({ text: 'Error', icon: 'error' });
     }
   }
 
@@ -105,33 +106,41 @@ const ButtonWrapper = ({ showSpinner, userData }) => {
 };
 
 const CheckOut = () => {
-  const paypalUrl = "https://www.paypal.com/signin";
+  const [countries, setCountries] = useState([]);
 
-  const IMAGES_BASE_URL = `${getConfig().URL_BASE_BACKEND}/pictures_art/`;
+  const paypalUrl = 'https://www.paypal.com/signin';
+
+  const getCountries = async () => {
+    const url = `${getConfig().URL_BASE_BACKEND}/countries`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    setCountries(data);
+  };
+
+  useEffect(() => {
+    getCountries();
+  }, []);
 
   const context = useContext(appContext);
+  const history = useHistory();
 
   const PICTURES_ART_URL_BASE = `${
     getConfig().URL_BASE_BACKEND
   }/images/pictures_art`;
 
-  const [firstName, setFirstName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [county, setCounty] = useState("");
-  const [eircode, setEircode] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [message, setMessage] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [county, setCounty] = useState('');
+  const [eircode, setEircode] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [message, setMessage] = useState('');
 
   const [validForm, setValidForm] = useState(false);
-
-  const loadDataLocal = () => {
-    console.log(context.cart);
-  };
-
-  useEffect(loadDataLocal, []);
 
   const handleCancel = () => {
     setValidForm(false);
@@ -171,47 +180,63 @@ const CheckOut = () => {
 
   const handleCheckOut = () => {
     setValidForm(false);
-
-    console.log("TOTAL:", context.totalAmount());
     let value = true;
 
     if (firstName.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (surname.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (address.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (city.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (county.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (eircode.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (email.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (mobileNumber.trim().length === 0) {
-      setMessage("You must fill in the field");
+      setMessage('You must fill in the field');
       value = false;
     }
     if (value) {
-      console.log("ok");
+      console.log('ok');
       setValidForm(true);
     }
   };
+
+  useEffect(() => {
+    console.log(
+      'CANT CARRITO...',
+      context.cart.length,
+      context.loggedUser,
+      context.user,
+      'checkLoggedFinished...',
+      context.checkLoggedFinished
+    );
+
+    if (
+      context.checkLoggedFinished &&
+      (!context.loggedUser || context.cart.length === 0)
+    ) {
+      history.push('/portfolio');
+    }
+  }, [context.checkLoggedFinished]);
 
   return (
     <Container>
@@ -228,7 +253,7 @@ const CheckOut = () => {
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {firstName ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -240,7 +265,7 @@ const CheckOut = () => {
                   <Form.Control onChange={handleSurname} disabled={validForm} />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {surname ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -254,7 +279,7 @@ const CheckOut = () => {
                   <Form.Control onChange={handleAddress} disabled={validForm} />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {address ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -267,7 +292,7 @@ const CheckOut = () => {
                   <Form.Control onChange={handleCity} disabled={validForm} />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {city ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -278,10 +303,23 @@ const CheckOut = () => {
               <Col>
                 <Form.Group>
                   <Form.Label>Country</Form.Label>
-                  <Form.Control onChange={handleCounty} disabled={validForm} />
+                  <Form.Control
+                    onChange={handleCounty}
+                    as="select"
+                    disabled={validForm}
+                  >
+                    <option value="">Select country...</option>
+                    {countries.map(({ id, name }) => (
+                      <option value={id} key={id}>
+                        {name}
+                      </option>
+                    ))}
+                  </Form.Control>
+
+                  {/*                  <Form.Control onChange={handleCounty} disabled={validForm} /> */}
                   <Form.Text className="text-muted">Required</Form.Text>
                   {county ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -294,7 +332,7 @@ const CheckOut = () => {
                   <Form.Control onChange={handleEircode} disabled={validForm} />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {eircode ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -309,7 +347,7 @@ const CheckOut = () => {
                   <Form.Control onChange={handleEmail} disabled={validForm} />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {email ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -325,7 +363,7 @@ const CheckOut = () => {
                   />
                   <Form.Text className="text-muted">Required</Form.Text>
                   {mobileNumber ? (
-                    ""
+                    ''
                   ) : (
                     <p className="text-danger font-italic">{message}</p>
                   )}
@@ -345,7 +383,7 @@ const CheckOut = () => {
                         src={`${PICTURES_ART_URL_BASE}/${cart.imagen}`}
                         alt={cart.name}
                         fluid
-                        style={{ maxHeight: "100px", padding: 0 }}
+                        style={{ maxHeight: '100px', padding: 0 }}
                       />
                     </div>
                   </td>
@@ -356,25 +394,20 @@ const CheckOut = () => {
 
           <Row>
             <Col
-              style={{ fontSize: "18px", fontFamily: "Georgia" }}
+              style={{ fontSize: '18px', fontFamily: 'Georgia' }}
               className="d-flex align-items-center justify-content-center"
             >
-              Total: USD {context.totalAmount()}
+              Total: € {context.totalAmount()}
             </Col>
           </Row>
           <Row className="mt-3">
             <Col
               className="d-flex align-items-center justify-content-center "
-              style={{ flexDirection: "column" }}
+              style={{ flexDirection: 'column' }}
             >
               {!validForm ? (
                 <button className="button-style" onClick={handleCheckOut}>
-                  Pay with
-                  <img
-                    src={paypalUrl} // Reemplaza con la ruta del logotipo de PayPal
-                    alt="PayPal"
-                    style={{ marginRight: "10px" }} // Agrega un margen derecho para separar el logotipo del texto
-                  />
+                  Pay with <img src={logoPaypal} height="22px" />
                 </button>
               ) : (
                 <>
@@ -383,9 +416,10 @@ const CheckOut = () => {
                     <Col>
                       <PayPalScriptProvider
                         options={{
-                          "client-id":
-                            "AUsVdu_ALzBec4O2PpwAdMhbeZpLCAxUsrcl49tDo_D7vTzR3LoYpBFIfUsn986cd6JBXno64uCwYVSy",
-                          locale: "en_US",
+                          'client-id':
+                            'AUsVdu_ALzBec4O2PpwAdMhbeZpLCAxUsrcl49tDo_D7vTzR3LoYpBFIfUsn986cd6JBXno64uCwYVSy',
+                          locale: 'en_US',
+                          currency: 'EUR',
                         }}
                       >
                         <ButtonWrapper

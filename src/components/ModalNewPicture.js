@@ -18,6 +18,7 @@ export default function ModalNewPicture({
   const [newName, setNewName] = useState();
   const [newPrice, setNewPrice] = useState();
   const [newDescription, setNewDescription] = useState();
+  const [plainTextNewDescription, setPlainTextNewDescription] = useState("");
 
   const [message, setMessage] = useState();
 
@@ -174,7 +175,17 @@ export default function ModalNewPicture({
   };
 
   const handleNewDescription = (event) => {
+    const plainText = event.editor.document.getBody().getText();
+
     setNewDescription(event.editor.getData());
+    setPlainTextNewDescription(plainText);
+  };
+
+  const handleCkeditorDataReady = (event) => {
+    //Inicializo el counter del ckeditor
+    const plainText = event.editor.document.getBody().getText();
+
+    setPlainTextNewDescription(plainText);
   };
 
   return (
@@ -220,7 +231,17 @@ export default function ModalNewPicture({
           ))}
 
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>
+              Description ({" "}
+              <span
+                style={{
+                  color: plainTextNewDescription.length > 460 ? "red" : "black",
+                }}
+              >
+                {plainTextNewDescription.length}{" "}
+              </span>{" "}
+              / 460 )
+            </Form.Label>
             {/*  <div style={{ width: 468, height: 220, marginBottom: "70px" }}>
               <div ref={quillRef} />
             </div> */}
@@ -234,6 +255,7 @@ export default function ModalNewPicture({
             <CKEditor
               onChange={handleNewDescription}
               initData={modalInfo && modalInfo.description}
+              onDataReady={handleCkeditorDataReady}
               style={{ width: "500px", height: "300px" }}
             />
             ;{newDescription ? "" : message}

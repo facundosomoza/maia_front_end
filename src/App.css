@@ -156,3 +156,49 @@ a {
 .my-swal-content {
   color: white; /* Color del texto */
 }
+
+.card-title {
+  color: #c68c53 !important;
+}
+
+.price {
+  color: #c68c53;
+}
+
+.nav-link,
+.navbar-brand {
+  color: white !important;
+}
+
+.html-details-description {
+  word-wrap: break-word;
+}
+
+.terms-shipping {
+  color: #c68c53 !important;
+}
+
+.forgotten {
+  color: #c68c53 !important;
+}
+
+.card-join {
+  color: #c68c53 !important;
+}
+
+.text-color {
+  color: #c68c53;
+}
+
+/* Estilo para el fondo del botón */
+.button-background {
+  background-color: #c68c53;
+  color: white; /* Cambia el color del texto en el botón para que sea legible en el fondo */
+  border: none; /* Elimina el borde del botón si es necesario */
+}
+
+.custom-button-class {
+  background-color: #c68c53;
+  color: white; /* Cambiar el color del texto en el botón para que sea legible en el fondo */
+  border: none; /* Opcional: eliminar el borde del botón si es necesario */
+}
