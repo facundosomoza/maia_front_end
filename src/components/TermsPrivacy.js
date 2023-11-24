@@ -59,8 +59,8 @@ const TermsPrivacy = () => {
                 </p>
                 <p className="text-left ml-3 mb-2">
                   6- Customer and user information will only be used for
-                  purposes relating to the content of MaiaTsadzeArt.com. I may,
-                  at times draw attention to other 3rd party products or
+                  purposes relating to the content of MaiaTsintsadzeArt.com. I
+                  may, at times draw attention to other 3rd party products or
                   services if they are deemed to be relevant to the above.
                 </p>
                 <p className="text-left ml-3 mb-2">

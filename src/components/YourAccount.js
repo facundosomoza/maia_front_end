@@ -72,8 +72,6 @@ const YourAccount = () => {
         const data = await response.json();
 
         if (response.status === 200) {
-          console.log(data);
-          console.log("este es el data user....", dataUser);
           context.changeUser({
             email: dataUser.email,
             userId: data.userId,
@@ -170,7 +168,7 @@ const YourAccount = () => {
         </>
       ) : (
         <Row className="justify-content-center mt-4">
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} className="d-flex justify-content-center mb-3">
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>Existing Customer</Card.Title>
@@ -213,7 +211,7 @@ const YourAccount = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={12} md={6}>
+          <Col className="d-flex justify-content-center mb-3" xs={12} md={6}>
             <Card style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>New Customer</Card.Title>

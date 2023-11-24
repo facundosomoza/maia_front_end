@@ -5,6 +5,8 @@ import Nav from "react-bootstrap/Nav";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
+import imageMaia from "../assets/images/navigation_img.jpeg";
+
 import { NavLink, useHistory } from "react-router-dom";
 
 import { appContext } from "../contexts/appContext";
@@ -13,6 +15,7 @@ import { getConfig } from "../utils/config";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 const Navigation = () => {
   const context = useContext(appContext);
@@ -32,19 +35,14 @@ const Navigation = () => {
       context.changeUser(null);
 
       context.setCart([]);
-      console.log("Vaciando el carrito...");
 
       context.checkPictureSelected([]);
 
       history.push("/");
     } else {
-      console.log("error");
+      Swal.fire({ text: "Logout Error", icon: "error" });
     }
   };
-
-  useEffect(() => {
-    console.log("CARRITO...", context.cart);
-  }, [context.cart]);
 
   const checkLogged = async () => {
     context.handleCheckLoggedFinished(false);
@@ -58,14 +56,11 @@ const Navigation = () => {
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log("DATA 222...", data);
+
       context.loginUser(true);
       context.changeUser(data);
       context.getInfo();
-
-      console.log("USUARIO YA LOGUEADO", data);
     } else {
-      console.log("USUARIO NO LOGUEADO");
       context.loginUser(false);
     }
 
@@ -77,7 +72,16 @@ const Navigation = () => {
   }, []);
 
   return (
-    <Navbar expand="lg" className="button-style">
+    <Navbar
+      expand="lg"
+      style={{
+        backgroundImage: `url(${imageMaia})`,
+        backgroundSize: "cover",
+        position: "sticky",
+        top: 0,
+        zIndex: 1000,
+      }}
+    >
       <Container>
         <NavLink
           className="navbar-brand white-link"

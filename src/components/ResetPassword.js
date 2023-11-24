@@ -18,6 +18,8 @@ import { checkPasswordValidity } from "../utils/passwordValidation";
 const ResetPassword = () => {
   const history = useHistory();
 
+  const context = useContext(appContext);
+
   const [passwordNew, setPasswordNew] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [recoveryToken, setRecoveryToken] = useState(null);
@@ -41,15 +43,12 @@ const ResetPassword = () => {
   const handleContinue = async () => {
     let value = true;
 
-    console.log({ isPasswordValid });
-
     if (!isPasswordValid) {
       value = false;
     }
 
     if (value) {
       try {
-        console.log("Cambiar", recoveryToken, passwordNew);
         const url = `${
           getConfig().URL_BASE_BACKEND
         }/forgot_password/change_password`;
@@ -66,20 +65,20 @@ const ResetPassword = () => {
           credentials: "include",
         });
 
-        /*const data = await response.json();
+        const data = await response.json();
 
         if (response.status === 200) {
-          console.log(data);
-          console.log("este es el data user....", dataUser);
+          Swal.fire({ title: "Your Password was changed", icon: "success" });
+
           context.changeUser({
-            email: dataUser.email,
+            email: data.email,
             userId: data.userId,
           });
           context.loginUser(true);
           history.push("/");
         } else {
           Swal.fire({ title: data.message, icon: "error" });
-        } */
+        }
       } catch {
         Swal.fire("Password are not valid");
       }
@@ -89,8 +88,8 @@ const ResetPassword = () => {
   return (
     <Container className="d-flex align-items-center justify-content-center ">
       <Row className="justify-content-center mt-4">
-        <Col xs={10} md={6}>
-          <Card style={{ width: "18rem" }}>
+        <Col xs={10} md={8}>
+          <Card>
             <Card.Body>
               <Card.Title>Reset your password</Card.Title>
               <Card.Text>

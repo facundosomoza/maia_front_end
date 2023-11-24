@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import UpdateImageHome from "./UpdateImageHome";
 import ModalHome from "./ModalHome";
 import Footer from "./Footer";
+import Spinner from "react-bootstrap/Spinner";
 
 import { getConfig } from "../utils/config";
 
@@ -30,8 +31,6 @@ const Home = () => {
       );
       const data = await response.json();
 
-      console.log("DEFAULT BKG", data);
-
       setHomeImage(data.image);
       setImageLoaded(true);
     } catch (error) {
@@ -45,11 +44,9 @@ const Home = () => {
 
   const handleUpdateImage = () => {
     setShowUpdateModal(true);
-    console.log("abrir");
   };
 
   const handleClose = () => {
-    console.log("soy handleclose");
     setShowUpdateModal(false);
   };
 
@@ -73,7 +70,9 @@ const Home = () => {
               alt="Home"
             />
           ) : (
-            <p>Loading...</p>
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden"></span>
+            </Spinner>
           )}
         </Col>
       </Row>

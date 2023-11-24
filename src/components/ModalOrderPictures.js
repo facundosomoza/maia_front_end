@@ -11,17 +11,12 @@ export default function ModalOrderPictures({
   imagesOrder,
   updateImagesOrder,
 }) {
-  console.log({ imagesOrder });
-
   const initInputValues = () => {
-    console.log("Initializing input values...", imagesOrder);
     const newInputValues = imagesOrder.map(
       ({ id, name, price, description, order_picture, sold }) => {
         return { id, name, price, description, order_picture, sold };
       }
     );
-
-    console.log({ newInputValues });
 
     setInputValues(newInputValues);
   };
@@ -93,7 +88,6 @@ export default function ModalOrderPictures({
         <Modal.Body>
           <Row>
             {imagesOrder.map((imageOrder, i) => {
-              console.log("inputValues...", imagesOrder, i, inputValues[i]);
               return (
                 <Col key={imageOrder.id} xs={6} sm={4} md={3} lg={2}>
                   <Figure>

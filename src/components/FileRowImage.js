@@ -12,16 +12,12 @@ export default function FileRowImage({
 }) {
   const { file, image } = data;
 
-  console.log("IMAGEN...", image);
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(
     image ? image : noPictureImage
   );
 
   useEffect(() => {
-    console.log("Cambio el archivo seleccionado");
-
     if (selectedFile) {
       setPreviewImage(URL.createObjectURL(selectedFile));
     } else {

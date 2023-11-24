@@ -79,16 +79,14 @@ const NewCustomer = () => {
       const emailNotExists = await checkExistingEmail();
 
       if (emailNotExists) {
-        console.log("Continuar...");
-
         registerNewCustomer();
 
         try {
         } catch (erorr) {
-          console.log("Error al verificar el email");
+          Swal.fire({ text: "Registration error", icon: "error" });
         }
       } else {
-        console.log("El email ya esta en registrado");
+        Swal.fire({ text: "Email already exists", icon: "error" });
       }
     }
   };
@@ -108,8 +106,6 @@ const NewCustomer = () => {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
-
-      console.log(response);
 
       if (response.status === 200) {
         history.push("/email-sent");
@@ -190,9 +186,11 @@ const NewCustomer = () => {
               </Col>
             </Row>
           </Form>
+
           <button className="button-style mr-2" onClick={handleRegisterNew}>
             Register
           </button>
+
           <Link className="card-title" to="/youraccount">
             Cancel
           </Link>

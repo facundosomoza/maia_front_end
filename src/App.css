@@ -37,6 +37,10 @@
   height: 40px;
 }
 
+.custom-row {
+  text-align: left;
+}
+
 .custom-row h1 {
   font-family: "Georgia", sans-serif;
 }
@@ -46,8 +50,6 @@
 }
 
 .custom-border {
-  border: 1px solid #d8ad7a !important;
-
   border-radius: 7px !important;
 }
 
@@ -67,8 +69,8 @@
   width: 1000px;
 }
 
-.button-style {
-  background-image: linear-gradient(to right, #c68c53, #e0aa7f, #c68c53);
+.button-style-nav {
+  height: 70px;
   color: white;
   border-radius: 5px;
   padding: 10px 20px;
@@ -77,21 +79,32 @@
   cursor: pointer;
 }
 
+.button-style {
+  background-color: black;
+  color: white !important;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: 400 !important;
+}
+
 .button-style:hover {
-  border-color: black; /* Cambia el color del borde al pasar el cursor */
-  color: black;
+  border-color: gray; /* Cambia el color del borde al pasar el cursor */
+  color: gray;
 
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3); /* Agrega una sombra al pasar el cursor */
   /* Otros estilos adicionales si los deseas */
 }
 
 .button-style-second {
-  background-image: linear-gradient(to right, #c68c53, #e0aa7f, #c68c53);
-  color: white;
+  background-image: linear-gradient(to right, #000, #888, #000);
+  color: white !important;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
-  border: 2px #e0aa7f solid; /* Borde blanco de 2px */
+  border: 2px #000, solid; /* Borde blanco de 2px */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   cursor: pointer;
   margin-left: 10px;
@@ -107,15 +120,15 @@
 }
 
 .badge-primary {
-  background-color: #c68c53 !important;
+  background-color: #000 !important;
 }
 
 .delete-button {
-  background-image: linear-gradient(to right, #f6665c, #f44336);
+  background-image: linear-gradient(to right, #000, #888);
   color: white;
-  border: none;
+  border: white;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 4px 8px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -125,17 +138,17 @@
 .delete-button:hover {
   background-image: linear-gradient(
     to right,
-    #d32f2f,
-    #b71c1c
+    #000,
+    #888
   ); /* Gradiente lineal de rojo oscuro a rojo más oscuro */
 }
 
 .form-control:focus {
   color: black !important;
-  background-color: #fff !important;
-  border-color: #fbc2eb !important;
+  background-color: white !important;
+  border-color: black !important;
   outline: 0 !important;
-  box-shadow: 0 0 0 0.1rem #e0aa7f !important;
+  box-shadow: 0 0 0 0.1rem #000 !important;
 }
 
 a {
@@ -148,8 +161,8 @@ a {
 }
 
 .my-swal-popup {
-  background-color: #d8ad7a; /* Color de fondo */
-  border: 2px solid #8c7ca4; /* Borde */
+  background-color: white; /* Color de fondo */
+  border: 2px solid black; /* Borde */
   border-radius: 5px;
 }
 
@@ -158,11 +171,11 @@ a {
 }
 
 .card-title {
-  color: #c68c53 !important;
+  color: black !important;
 }
 
 .price {
-  color: #c68c53;
+  color: black;
 }
 
 .nav-link,
@@ -175,30 +188,93 @@ a {
 }
 
 .terms-shipping {
-  color: #c68c53 !important;
+  color: black !important;
 }
 
 .forgotten {
-  color: #c68c53 !important;
+  color: black !important;
 }
 
 .card-join {
-  color: #c68c53 !important;
+  color: black !important;
 }
 
 .text-color {
-  color: #c68c53;
+  color: black;
 }
 
 /* Estilo para el fondo del botón */
 .button-background {
-  background-color: #c68c53;
+  background-color: black;
   color: white; /* Cambia el color del texto en el botón para que sea legible en el fondo */
   border: none; /* Elimina el borde del botón si es necesario */
 }
 
 .custom-button-class {
-  background-color: #c68c53;
+  background-color: black;
   color: white; /* Cambiar el color del texto en el botón para que sea legible en el fondo */
   border: none; /* Opcional: eliminar el borde del botón si es necesario */
+}
+
+.cookie-banner-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 10px;
+  text-align: left;
+  z-index: 1000; /* Asegura que el banner esté sobre el contenido */
+}
+
+.cookie-banner-container p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cookie-banner-container a {
+  color: black !important;
+}
+
+.cookie-banner-container button {
+  margin-top: 5px;
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-added {
+  font-weight: 700;
+  padding-top: 13px;
+  display: block;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: black !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+  box-shadow: none !important;
+}
+
+.swal2-html-container {
+  font-weight: 700 !important;
+}
+@media (max-width: 520px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 767px) {
+  .custom-row {
+    text-align: center;
+  }
 }

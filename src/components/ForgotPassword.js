@@ -37,8 +37,6 @@ export default function ForgotPassword() {
 
     const data = await response.json();
 
-    console.log(data);
-
     if (response.status === 200) {
       Swal.fire({ text: data.message, icon: "success" });
     } else {
@@ -55,7 +53,7 @@ export default function ForgotPassword() {
   return (
     <Container>
       <Row className="mt-4 d-flex justify-content-center">
-        <Col className="col-6">
+        <Col sm={10} md={6}>
           <Form>
             <Row>
               <Col>
@@ -87,12 +85,15 @@ export default function ForgotPassword() {
             <Row className="mt-2">
               <Col>
                 <button
-                  className="mr-2 button-style"
+                  className="mr-2 button-style mb-4 w-100"
                   onClick={handleFormSubmit}
                 >
                   Reset Password
                 </button>
-                <Link className="card-title" to="/youraccount">
+                <Link
+                  className="button-style mb-4 w-100 d-block text-center"
+                  to="/youraccount"
+                >
                   Cancel
                 </Link>
               </Col>

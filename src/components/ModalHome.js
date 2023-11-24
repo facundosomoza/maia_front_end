@@ -15,7 +15,7 @@ const ModalHome = ({ showUpdateModal, handleClose, reloadHomeImage }) => {
 
     if (!selectedImage) {
       // Si no se ha seleccionado ninguna imagen, puedes mostrar un mensaje de error
-      console.log("It has not selected any image");
+
       return;
     }
 

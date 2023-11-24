@@ -14,6 +14,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import Footer from "./components/Footer";
 import TermsPrivacy from "./components/TermsPrivacy";
 import ShippingReturns from "./components/ShippingReturns";
+import CookieBanner from "./components/CookieBanner";
 
 import { Switch, Route } from "react-router-dom";
 import AppContextProvider from "./contexts/appContext";
@@ -27,6 +28,8 @@ function App() {
     <>
       <AppContextProvider>
         <Navigation />
+
+        <CookieBanner path="/terms-privacy" />
 
         <Switch>
           <Route exact path="/">

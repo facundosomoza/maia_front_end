@@ -1,9 +1,8 @@
+import Swal from "sweetalert2";
 import { getConfig } from "../../utils/config";
 
 export default function usePaypal() {
   const createOrder = async () => {
-    console.log("Creando orden de Paypal...");
-
     try {
       fetch(`${getConfig().URL_BASE_BACKEND}/paypal/createorder`, {
         method: "POST",
@@ -11,12 +10,10 @@ export default function usePaypal() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("PAYPAL DATA", data);
-
           return data.id;
         });
     } catch (error) {
-      console.error("Error al crear la orden de pago", error);
+      Swal.fire({ text: "Payment order failed", icon: "error" });
     }
   };
 

@@ -150,7 +150,7 @@ export default function ModalNewPicture({
 
           handleClose();
         } catch (err) {
-          console.log("error");
+          Swal.fire({ text: "Error", icon: "error" });
         }
       }
     } else {

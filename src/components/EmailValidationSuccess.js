@@ -9,9 +9,16 @@ const EmailValidationSuccess = () => {
   return (
     <Container>
       <Row className="d-flex align-items-center justify-content-center mt-4">
-        <Col xs={10} md={6}>
-          <p>You email has been confirmed successfully!</p>
-          <Link to="/youraccount">Login</Link>
+        <Col xs={10} md={9} className="text-center">
+          <h1 className="font-weight-bold text-dark">
+            You email has been confirmed successfully!
+          </h1>
+          <Link
+            className="button-style-second d-inline-block my-3"
+            to="/youraccount"
+          >
+            Login
+          </Link>
         </Col>
       </Row>
     </Container>

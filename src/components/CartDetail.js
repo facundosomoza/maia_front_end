@@ -42,60 +42,67 @@ const CartDetail = () => {
     }
   };
 
-  console.log(context.cart);
-
   return (
     <>
       <Container>
-        <Table responsive className="w-100">
-          <thead>
-            <tr>
-              <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-3 text-left">
-                Picture
-              </th>
-              <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-4 text-left">
-                Name
-              </th>
-              <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-4 text-left">
-                Price
-              </th>
-              <th className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 text-left ">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {context.cart.map((info) => (
-              <tr key={info.id}>
-                <td>
-                  <Image
-                    src={`${PICTURES_ART_URL_BASE}/${info.imagen}`}
-                    alt={info.name}
-                    fluid
-                    style={{ maxHeight: "100px", padding: 0 }}
-                  />
-                </td>
-                <td style={{ fontFamily: "Georgia" }} className="align-middle">
-                  {info.name}
-                </td>
-                <td style={{ fontFamily: "Georgia" }} className="align-middle">
-                  €{info.price}
-                </td>
-                <td className="align-middle">
-                  <button
-                    className="delete-button btn btn-md "
-                    onClick={() => {
-                      console.log(info);
-                      context.handleDelete(info);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <Row className="justify-content-center">
+          <Col md={7}>
+            <Table>
+              <thead>
+                <tr>
+                  <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-3 text-left">
+                    Picture
+                  </th>
+                  <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-4 text-left">
+                    Name
+                  </th>
+                  <th className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-4 text-left">
+                    Price
+                  </th>
+                  <th className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 text-left ">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {context.cart.map((info) => (
+                  <tr key={info.id}>
+                    <td className="text-center">
+                      <Image
+                        src={`${PICTURES_ART_URL_BASE}/${info.imagen}`}
+                        alt={info.name}
+                        fluid
+                        style={{ maxHeight: "100px", padding: 0 }}
+                      />
+                    </td>
+                    <td
+                      style={{ fontFamily: "Georgia" }}
+                      className="align-middle"
+                    >
+                      {info.name}
+                    </td>
+                    <td
+                      style={{ fontFamily: "Georgia" }}
+                      className="align-middle"
+                    >
+                      €{info.price}
+                    </td>
+                    <td className="align-middle">
+                      <button
+                        className="delete-button "
+                        onClick={() => {
+                          context.handleDelete(info);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
         <Row className="text-center align-items-center">
           <Col>
             <div
@@ -105,7 +112,7 @@ const CartDetail = () => {
               Total Amount: €{context.totalAmount()}
             </div>
 
-            <button className="button-style" onClick={handleCheckOut}>
+            <button className="button-style mt-3" onClick={handleCheckOut}>
               Check Out
             </button>
           </Col>

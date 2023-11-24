@@ -11,6 +11,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
 import { appContext } from "../contexts/appContext";
 
 import { getConfig } from "../utils/config";
@@ -38,12 +39,16 @@ const Portfolio = () => {
 
   const [orderPicture, setOrderPicture] = useState(false);
 
+  const [loadingImages, setLoadingImages] = useState(true);
+
   const PICTURES_ART_URL_BASE = `${
     getConfig().URL_BASE_BACKEND
   }/images/pictures_art`;
 
   const loadImages = async () => {
     try {
+      setLoadingImages(true);
+
       const url = `${getConfig().URL_BASE_BACKEND}/picturesart`;
 
       const response = await fetch(url, {
@@ -55,22 +60,14 @@ const Portfolio = () => {
       setImages(data);
     } catch (error) {
       console.error("Error al cargar las imágenes:", error);
+    } finally {
+      setLoadingImages(false); // Finaliza la carga, independientemente de si fue exitosa o no
     }
   };
 
   useEffect(() => {
     loadImages();
   }, []);
-
-  /*   const handleClick = (dataImage) => {
-    const { id } = dataImage;
-    const updatedImage = images.find((image) => image.id === id);
-    const updatedDataImage = { ...dataImage, sold: updatedImage.sold };
-
-    console.log("Pasando a details...", updatedDataImage);
-
-    history.push("/details", updatedDataImage);
-  }; */
 
   const handleDelete = async (productId) => {
     const pictureToDeleteResponse = await fetch(
@@ -182,9 +179,6 @@ const Portfolio = () => {
   };
 
   const handleUpdateImagesOrder = () => {
-    /* const updatedImages = JSON.parse(JSON.stringify(newImagesOrder));
-    console.log(updatedImages);
-    setImages(updatedImages); */
     handleCloseOrder();
     loadImages();
   };
@@ -196,87 +190,95 @@ const Portfolio = () => {
           <Row>
             <Col className="m-4 ">
               <AdminTool handleNew={handleNew} />
-
               <OrderPictures handleOrderPictures={handleOrderPictures} />
             </Col>
           </Row>
         )}
         <Row className="row-cols-1 row-cols-sm-2">
-          {images.map((obraArte) => (
-            <Col key={obraArte.id} className="mb-4">
-              <Link to={`/details/${obraArte.id}`} className="link-portfolio">
-                <Card className="h-100 p-4 custom-border">
-                  <div className="d-flex flex-column align-items-center">
-                    <Card.Img
-                      /*  onClick={() => handleClick(obraArte)} */
-                      variant="top"
-                      style={{ cursor: "pointer" }}
-                      src={`${PICTURES_ART_URL_BASE}/${
-                        obraArte.images[0].file_image
-                      }?${Math.random()}`}
-                    />
-                    <div className="text-center mt-3">
-                      <Card.Title
-                        style={{ fontSize: "25px", fontFamily: "Georgia" }}
-                      >
-                        {obraArte.name}
-                      </Card.Title>
-                      <div
-                        className="price"
-                        style={{ fontSize: "20px", fontFamily: "Georgia" }}
-                      >
-                        €{obraArte.price}
-                      </div>
-                    </div>
-                    {obraArte.sold ? (
-                      <span
-                        className="badge badge-pill badge-dark mt-2"
-                        style={{ fontSize: "20px" }}
-                      >
-                        SOLD OUT
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  {context.user && context.user.email === "maia@gmail.com" && (
-                    <div className="card-footer d-flex justify-content-center mt-3">
-                      <Button
-                        variant="success"
-                        className="mx-1"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleEdit(true, obraArte);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="danger"
-                        className="mx-1"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleDelete(obraArte.id);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="mx-1"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleSold(obraArte.id);
-                        }}
-                      >
-                        Sold
-                      </Button>
-                    </div>
-                  )}
-                </Card>
-              </Link>
+          {loadingImages ? (
+            <Col className="text-center d-flex align-items-center justify-content-center vh-100">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
             </Col>
-          ))}
+          ) : (
+            images.map((obraArte) => (
+              <Col key={obraArte.id} className="mb-4">
+                <Link to={`/details/${obraArte.id}`} className="link-portfolio">
+                  <Card className="h-100 p-4 custom-border">
+                    <div className="d-flex flex-column align-items-center">
+                      <Card.Img
+                        /*  onClick={() => handleClick(obraArte)} */
+                        variant="top"
+                        style={{ cursor: "pointer" }}
+                        src={`${PICTURES_ART_URL_BASE}/${
+                          obraArte.images[0].file_image
+                        }?${Math.random()}`}
+                      />
+                      <div className="text-center mt-3">
+                        <Card.Title
+                          style={{ fontSize: "25px", fontFamily: "Georgia" }}
+                        >
+                          {obraArte.name}
+                        </Card.Title>
+                        <div
+                          className="price"
+                          style={{ fontSize: "20px", fontFamily: "Georgia" }}
+                        >
+                          €{obraArte.price}
+                        </div>
+                      </div>
+                      {obraArte.sold ? (
+                        <span
+                          className="badge badge-pill badge-dark mt-2"
+                          style={{ fontSize: "20px" }}
+                        >
+                          SOLD OUT
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    {context.user &&
+                      context.user.email === "maia@gmail.com" && (
+                        <div className="card-footer d-flex justify-content-center mt-3">
+                          <Button
+                            variant="success"
+                            className="mx-1"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              handleEdit(true, obraArte);
+                            }}
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            variant="danger"
+                            className="mx-1"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              handleDelete(obraArte.id);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="primary"
+                            className="mx-1"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              handleSold(obraArte.id);
+                            }}
+                          >
+                            Sold
+                          </Button>
+                        </div>
+                      )}
+                  </Card>
+                </Link>
+              </Col>
+            ))
+          )}
         </Row>
       </Container>
 

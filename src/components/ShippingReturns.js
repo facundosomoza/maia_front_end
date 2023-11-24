@@ -93,8 +93,8 @@ const ShippingReturns = () => {
               mandatory.
             </p>
             <p>Maia Tsintsadze</p>
-            <p>12 Riverston Gardens D07 Dublin</p>
-            <p>mail: admin@maiatsadzeart.com</p>
+
+            <p>mail: info@maiatsintsadzeart.com</p>
             <p>
               The revocation period shall be deemed complied with if you
               dispatch the notice on the exercise of the right of revocation
@@ -187,8 +187,8 @@ const ShippingReturns = () => {
               send it back to us (by mail, fax or email).
             </p>
             <p>Maia Tsintsadze</p>
-            <p>12 Riverston Gardens D07 Dublin</p>
-            <p>E-Mailadress: admin@maiatsadzeart.com</p>
+
+            <p>E-Mailadress: info@maiatsintsadzeart.com</p>
             <p>
               Hereby I/we (*) revoke the contract concluded by me/us (*)
               regarding the purchase of the following goods (*)/ the rendering

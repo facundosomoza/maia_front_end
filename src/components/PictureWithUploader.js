@@ -15,8 +15,6 @@ export default function PictureWithUploader({
 }) {
   const context = useContext(appContext);
 
-  console.log({ initialImage });
-
   const PICTURE_URL = `${getConfig().URL_BASE_BACKEND}/images/biography/`;
 
   const [image, setImage] = useState();
@@ -27,8 +25,6 @@ export default function PictureWithUploader({
   }, [initialImage]);
 
   const handlePictureBiography = (event) => {
-    console.log("Select image", order);
-
     //Guardar en la bd
     // Aquí puedes enviar las imágenes al backend
     // utilizando una solicitud POST y FormData
@@ -44,8 +40,6 @@ export default function PictureWithUploader({
     })
       .then((response) => response.json())
       .then((data) => {
-        // Aquí puedes manejar la respuesta del backend
-        console.log(data);
         //Actualizar la preview
         setUploadedImage(event.target.files[0]);
       })

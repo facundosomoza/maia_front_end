@@ -27,7 +27,6 @@ const AppContextProvider = ({ children }) => {
   };
 
   const changeUser = (loggedUser) => {
-    console.log(loggedUser);
     setUser(loggedUser);
   };
 
@@ -44,13 +43,9 @@ const AppContextProvider = ({ children }) => {
   };
 
   const getInfo = async () => {
-    //CONTINUE
-
-    console.log(user);
     if (user.email && user.userId) {
-      console.log("antes");
       const url = `${getConfig().URL_BASE_BACKEND}/cart/${user.userId}`;
-      console.log("despues");
+
       const response = await fetch(url, {
         method: "get",
         headers: { "Content-Type": "application/json" },
@@ -59,35 +54,23 @@ const AppContextProvider = ({ children }) => {
 
       const cart = await response.json();
 
-      console.log("Ya traje el carrito");
-
       setCart(cart);
     }
   };
 
   const checkPictureSelected = (idObraArteBuscada) => {
-    console.log("CART...", cart, idObraArteBuscada);
     const obraArteEncontrada = cart.find((item) => {
       return item.id_obra_arte === parseInt(idObraArteBuscada);
     });
 
     if (obraArteEncontrada) {
-      console.log(obraArteEncontrada, "ENCONTRADA");
       return true;
     } else {
-      console.log(obraArteEncontrada, "NO ENCONTRADA");
       return false;
     }
   };
 
-  if (checkPictureSelected(23)) {
-    console.log("La obra ya esta en el carrito");
-  } else {
-    console.log("La obra NO esta en el carrito");
-  }
-
   const handleDelete = async (info) => {
-    console.log("INFO...", info);
     const url = `${getConfig().URL_BASE_BACKEND}/cart/${info.id_obra_arte}/${
       info.id_usuario
     }`;
@@ -99,7 +82,7 @@ const AppContextProvider = ({ children }) => {
     });
 
     const dataJson = await response.json();
-    console.log("llamando a get info...");
+
     getInfo();
 
     Swal.fire({
@@ -116,32 +99,18 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     getInfo();
 
-    console.log(
-      "Ir a verificar si hay producto en localstorage",
-      user,
-      loggedUser
-    );
     if (localStorage.getItem("picturedSelected")) {
       const productToAdd = JSON.parse(localStorage.getItem("picturedSelected"));
-
-      console.log({ productToAdd });
 
       handleAddToCart(productToAdd.picture, "login");
       checkPictureSelected(productToAdd.picture);
       localStorage.removeItem("picturedSelected");
       getInfo();
-
-      // history.push("/");
-    } else {
-      console.log("No tengo nada para agregar");
     }
   }, [user]);
 
   const handleAddToCart = async (picture, from) => {
-    console.log("llamando probando", loggedUser);
-
     if (loggedUser === true) {
-      console.log("true");
       const url = `${getConfig().URL_BASE_BACKEND}/cart/add_to_cart`;
 
       const response = await fetch(url, {
@@ -154,8 +123,6 @@ const AppContextProvider = ({ children }) => {
         credentials: "include",
       });
 
-      console.log(response);
-
       getInfo();
 
       if (from === "login") {
@@ -165,13 +132,10 @@ const AppContextProvider = ({ children }) => {
       }
 
       Swal.fire({
-        title: "The product was added",
+        text: "The product was added",
         icon: "success",
-        color: "#c68c53",
-        confirmButtonColor: "#c68c53",
       });
     } else {
-      console.log("false");
       localStorage.setItem(
         "picturedSelected",
         JSON.stringify({

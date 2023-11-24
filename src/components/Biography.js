@@ -3,13 +3,14 @@ import { appContext } from "../contexts/appContext";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 
 import PictureWithUploader from "./PictureWithUploader";
 import { getConfig } from "../utils/config";
 
 const Biography = () => {
   const [biographyImages, setBiographyImages] = useState([]);
-
+  const [loadingBiography, setLoadingBiography] = useState(true);
   const context = useContext(appContext);
 
   useEffect(() => {
@@ -23,10 +24,11 @@ const Biography = () => {
           `${getConfig().URL_BASE_BACKEND}/biography-pictures`
         );
         const data = await response.json();
-
         setBiographyImages(data);
       } catch (error) {
         console.error("Error al obtener las imágenes de la biografía", error);
+      } finally {
+        setLoadingBiography(false);
       }
     };
 
@@ -58,8 +60,17 @@ const Biography = () => {
           </Col>
         </Row>
         <Row className="mt-4 custom-row align-items-center">
-          <Col className="col-12 col-lg-6 mb-2">
-            <PictureWithUploader order={1} initialImage={getInitialImage(1)} />
+          <Col className="text-center col-12 col-lg-6 mb-2">
+            {loadingBiography ? (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
+            ) : (
+              <PictureWithUploader
+                order={1}
+                initialImage={getInitialImage(1)}
+              />
+            )}
           </Col>
 
           <Col>
@@ -87,7 +98,6 @@ const Biography = () => {
             </p>
           </Col>
         </Row>
-
         <Row className="mt-4 custom-row align-items-center">
           <Col>
             <p className="text-center">
@@ -112,8 +122,17 @@ const Biography = () => {
             </p>
           </Col>
 
-          <Col className="col-12 col-lg-6 mb-2">
-            <PictureWithUploader order={2} initialImage={getInitialImage(2)} />
+          <Col className="text-center col-12 col-lg-6 mb-2">
+            {loadingBiography ? (
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
+            ) : (
+              <PictureWithUploader
+                order={2}
+                initialImage={getInitialImage(2)}
+              />
+            )}
           </Col>
         </Row>
         <Row className="mt-4 custom-row align-items-center">
@@ -134,13 +153,23 @@ const Biography = () => {
           </Col>
         </Row>
         <Row className="mt-4 d-flex justify-content-center">
-          <Col className="col-12 col-lg-10 mb-2">
-            <PictureWithUploader
-              order={3}
-              initialImage={getInitialImage(3)}
-              imageClass="img-lg"
-            />
-          </Col>
+          {loadingBiography ? (
+            <Col className="text-center">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
+            </Col>
+          ) : (
+            <>
+              <Col className="col-12 col-lg-10 mb-2">
+                <PictureWithUploader
+                  order={3}
+                  initialImage={getInitialImage(3)}
+                  imageClass="img-lg"
+                />
+              </Col>
+            </>
+          )}
         </Row>
 
         <Row className="mt-4 custom-row align-items-center">
@@ -155,12 +184,38 @@ const Biography = () => {
           </Col>
         </Row>
         <Row className="mt-4">
-          <Col className="col-12 col-md-6 mb-2">
-            <PictureWithUploader order={4} initialImage={getInitialImage(4)} />
-          </Col>
-          <Col className="col-12 col-md-6">
-            <PictureWithUploader order={5} initialImage={getInitialImage(5)} />
-          </Col>
+          {loadingBiography ? (
+            <Col className="text-center">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
+            </Col>
+          ) : (
+            <>
+              <Col className="col-12 col-md-6 mb-2">
+                <PictureWithUploader
+                  order={4}
+                  initialImage={getInitialImage(4)}
+                />
+              </Col>
+            </>
+          )}
+          {loadingBiography ? (
+            <Col className="text-center">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
+            </Col>
+          ) : (
+            <>
+              <Col className="col-12 col-md-6">
+                <PictureWithUploader
+                  order={5}
+                  initialImage={getInitialImage(5)}
+                />
+              </Col>
+            </>
+          )}
         </Row>
         <Row className="mt-4 custom-row align-items-center">
           <Col md={11} className="mx-auto">
@@ -181,13 +236,23 @@ const Biography = () => {
           </Col>
         </Row>
         <Row className="mt-4 d-flex justify-content-center">
-          <Col className="col-12 col-lg-10 mb-2">
-            <PictureWithUploader
-              order={6}
-              initialImage={getInitialImage(6)}
-              imageClass="img-lg"
-            />
-          </Col>
+          {loadingBiography ? (
+            <Col className="text-center">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden"></span>
+              </Spinner>
+            </Col>
+          ) : (
+            <>
+              <Col className="col-12 col-lg-10 mb-2">
+                <PictureWithUploader
+                  order={6}
+                  initialImage={getInitialImage(6)}
+                  imageClass="img-lg"
+                />
+              </Col>
+            </>
+          )}
         </Row>
       </Container>
       {/*  <ModalBiography

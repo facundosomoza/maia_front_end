@@ -4,13 +4,24 @@ import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { appContext } from "../contexts/appContext";
 import { getConfig } from "../utils/config";
 
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+
 const Contact = () => {
+  const history = useHistory();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [messageContact, setMessageContact] = useState("");
-  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const context = useContext(appContext);
 
   useEffect(() => {
@@ -25,8 +36,27 @@ const Contact = () => {
     setLastName(event.target.value);
   };
 
+  const setError = (fieldName, message) => {
+    const newErros = { ...errorMessage };
+
+    newErros[fieldName] = message;
+
+    setErrorMessage(newErros);
+  };
+
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    const enteredEmail = event.target.value;
+    setEmail(enteredEmail);
+
+    // Expresión regular para verificar la presencia de '@' en el correo electrónico
+    const emailPattern = /\S+@\S+\.\S+/;
+
+    // Validación y actualización del mensaje de error
+    if (!emailPattern.test(enteredEmail)) {
+      setError("email", "Invalid email.");
+    } else {
+      setError("email", "");
+    }
   };
 
   const handleSubjectChange = (event) => {
@@ -39,34 +69,51 @@ const Contact = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("HERE...");
+
+    let errors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      subject: "",
+      message: "",
+    };
 
     let value = true;
 
     if (firstName.trim().length === 0) {
-      setMessage("You must fill this field");
+      errors.firstName = "You must fill this field";
       value = false;
     }
 
     if (lastName.trim().length === 0) {
-      setMessage("You must fill this field");
+      errors.lastName = "You must fill this field";
       value = false;
     }
 
     if (email.trim().length === 0) {
-      setMessage("You must fill this field");
+      errors.email = "You must fill this field";
       value = false;
+    } else {
+      // Verificar si el formato del correo electrónico es válido
+      const emailPattern = /\S+@\S+\.\S+/;
+      if (!emailPattern.test(email)) {
+        errors.email = "Invalid email.";
+
+        value = false;
+      }
     }
 
     if (subject.trim().length === 0) {
-      setMessage("You must fill this field");
+      errors.subject = "You must fill this field";
       value = false;
     }
 
     if (messageContact.trim().length === 0) {
-      setMessage("You must fill this field");
+      errors.message = "You must fill this field";
       value = false;
     }
+
+    setErrorMessage(errors);
 
     if (value) {
       try {
@@ -77,7 +124,7 @@ const Contact = () => {
           lastName: lastName,
           email: email,
           subject: subject,
-          message: message,
+          message: messageContact,
         };
 
         const response = await fetch(url, {
@@ -86,18 +133,12 @@ const Contact = () => {
           headers: { "Content-Type": "application/json" },
           credentials: "include",
         });
-
-        console.log(response);
+        history.push("/");
+        Swal.fire({ title: "Your message was sent", icon: "success" });
       } catch (err) {
-        console.log(err);
+        Swal.fire({ title: "Your message was not send", icon: "error" });
       }
     }
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setSubject("");
-    setMessageContact("");
   };
 
   return (
@@ -119,7 +160,9 @@ const Contact = () => {
                   {firstName ? (
                     ""
                   ) : (
-                    <p className="text-danger font-italic">{message}</p>
+                    <p className="text-danger font-italic">
+                      {errorMessage.firstName}
+                    </p>
                   )}
                 </Form.Group>
               </Col>
@@ -136,7 +179,9 @@ const Contact = () => {
                   {lastName ? (
                     ""
                   ) : (
-                    <p className="text-danger font-italic">{message}</p>
+                    <p className="text-danger font-italic">
+                      {errorMessage.lastName}
+                    </p>
                   )}
                 </Form.Group>
               </Col>
@@ -151,10 +196,10 @@ const Contact = () => {
                 className="bg-light"
               />
               <Form.Text className="text-muted">Required</Form.Text>
-              {email ? (
+              {!errorMessage.email ? (
                 ""
               ) : (
-                <p className="text-danger font-italic">{message}</p>
+                <p className="text-danger font-italic">{errorMessage.email}</p>
               )}
             </Form.Group>
 
@@ -170,7 +215,9 @@ const Contact = () => {
               {subject ? (
                 ""
               ) : (
-                <p className="text-danger font-italic">{message}</p>
+                <p className="text-danger font-italic">
+                  {errorMessage.subject}
+                </p>
               )}
             </Form.Group>
 
@@ -183,10 +230,13 @@ const Contact = () => {
                 onChange={handleMessageChange}
                 className="bg-light"
               />
-              {message ? (
+              <Form.Text className="text-muted">Required</Form.Text>
+              {messageContact ? (
                 ""
               ) : (
-                <p className="text-danger font-italic">{message}</p>
+                <p className="text-danger font-italic">
+                  {errorMessage.message}
+                </p>
               )}
             </Form.Group>
 
