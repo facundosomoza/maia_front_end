@@ -396,13 +396,17 @@ const CheckOut = () => {
                 </button>
               ) : (
                 <>
-                  {/* SANDBOX */}
+                  {/* SANDBOX 
+                    "AUsVdu_ALzBec4O2PpwAdMhbeZpLCAxUsrcl49tDo_D7vTzR3LoYpBFIfUsn986cd6JBXno64uCwYVSy"
+                    
+                    */}
+
                   <Row>
                     <Col>
                       <PayPalScriptProvider
                         options={{
                           "client-id":
-                            "AUsVdu_ALzBec4O2PpwAdMhbeZpLCAxUsrcl49tDo_D7vTzR3LoYpBFIfUsn986cd6JBXno64uCwYVSy",
+                            "AdTUHdeWxmLBjD2Okx5XUjkXdq8YNwmyC3GpLHIy2F1VqAk66_iXf4WivhMsQZXCsDAmJU0HBswA3FAR",
                           locale: "en_US",
                           currency: "EUR",
                         }}
