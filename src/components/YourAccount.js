@@ -44,12 +44,12 @@ const YourAccount = () => {
     let value = true;
 
     if (emailEx.trim().length === 0) {
-      setMessage("You must complete the field");
+      setMessage("You must fill in the field");
       value = false;
     }
 
     if (passwordEx.trim().length === 0) {
-      setMessage("You must complete the field");
+      setMessage("You must fill in the field");
       value = false;
     }
 
@@ -97,7 +97,7 @@ const YourAccount = () => {
     <Container className="d-flex align-items-center justify-content-center ">
       {context.yourAccount === true ? (
         <>
-          <Row className="d-flex align-items-center justify-content-center  ">
+          <Row className="d-flex align-items-center justify-content-center  mt-4">
             <Row className="mt-4 justify-content-center align-items-center">
               <Col xs={10} sm={10} md={8} lg={12}>
                 <h1 className="font-weight-bold text-dark text-center">
@@ -151,7 +151,7 @@ const YourAccount = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col xs={10} md={6}>
+              <Col xs={10} md={6} className="mt-4">
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Title>New Customer</Card.Title>

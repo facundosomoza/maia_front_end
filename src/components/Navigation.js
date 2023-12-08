@@ -16,6 +16,7 @@ import { getConfig } from "../utils/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { scrollToTop } from "../utils/common";
 
 const Navigation = () => {
   const context = useContext(appContext);
@@ -88,21 +89,37 @@ const Navigation = () => {
           style={{ fontFamily: "Georgia" }}
           exact
           to="/"
+          onClick={scrollToTop}
         >
           Maia Tsintsadze
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <NavLink className="nav-link white-link" to="/portfolio">
+            <NavLink
+              className="nav-link white-link"
+              to="/portfolio"
+              onClick={scrollToTop}
+            >
               Portfolio
             </NavLink>
-            <NavLink to="/biography" className="nav-link white-link">
+            <NavLink
+              to="/biography"
+              className="nav-link white-link"
+              onClick={scrollToTop}
+            >
               Biography
             </NavLink>
-            <NavLink className="nav-link white-link" to="/contact">
-              Contact
-            </NavLink>
+            {!context.user ||
+              (context.user && context.user.email !== "maia@gmail.com" && (
+                <NavLink
+                  className="nav-link white-link"
+                  to="/contact"
+                  onClick={scrollToTop}
+                >
+                  Contact
+                </NavLink>
+              ))}
           </Nav>
           <Nav className="ml-auto">
             {context.loggedUser ? (
@@ -163,14 +180,20 @@ const Navigation = () => {
                 <NavLink
                   className="nav-link"
                   to="/youraccount"
-                  onClick={() => context.handleYourAccount(true)}
+                  onClick={() => {
+                    scrollToTop();
+                    context.handleYourAccount(true);
+                  }}
                 >
                   <FontAwesomeIcon icon={faCartShopping} />
                 </NavLink>
                 <NavLink
                   className="nav-link"
                   to="/youraccount"
-                  onClick={() => context.handleYourAccount(false)}
+                  onClick={() => {
+                    scrollToTop();
+                    context.handleYourAccount(false);
+                  }}
                 >
                   Your Account
                 </NavLink>

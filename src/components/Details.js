@@ -141,18 +141,8 @@ const Details = () => {
                   </Col>
                 </Row>
 
-                {context.user && context.user.email === "maia@gmail.com" ? (
-                  <Row>
-                    <Col>
-                      <p
-                        style={{ fontFamily: "Georgia" }}
-                        dangerouslySetInnerHTML={{
-                          __html: picture.description,
-                        }}
-                        className="mt-3 html-details-description"
-                      ></p>
-                    </Col>
-                  </Row>
+                {context.user && context.user.email !== "maia@gmail.com" ? (
+                  <></>
                 ) : context.user && pictureSelected ? (
                   <>
                     <Row>

@@ -149,9 +149,9 @@ const NewCustomer = () => {
                     value={emailAddressNew}
                   />
                   {emailErrorMessage && (
-                    <Form.Text className="text-error">
+                    <p className="text-danger font-italic">
                       {emailErrorMessage}
-                    </Form.Text>
+                    </p>
                   )}
                 </Form.Group>
               </Col>
@@ -169,9 +169,9 @@ const NewCustomer = () => {
                     }`}
                   />
                   {passwordErrorMessage && (
-                    <Form.Text className="text-error">
+                    <p className="text-danger font-italic">
                       {passwordErrorMessage}
-                    </Form.Text>
+                    </p>
                   )}
 
                   <Form.Text

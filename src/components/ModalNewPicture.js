@@ -84,16 +84,16 @@ export default function ModalNewPicture({
       let value = true;
 
       if (newName.trim().length === 0) {
-        setMessage("You must complete the field");
+        setMessage("You must fill in the field");
         value = false;
       }
 
       if (("" + newPrice).trim().length === 0) {
-        setMessage("You must complete the field");
+        setMessage("You must fill in the field");
         value = false;
       }
       if (newDescription.trim().length === 0) {
-        setMessage("You must complete the field");
+        setMessage("You must fill in the field");
         value = false;
       }
 
