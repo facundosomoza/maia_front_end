@@ -110,16 +110,14 @@ const Navigation = () => {
             >
               Biography
             </NavLink>
-            {!context.user ||
-              (context.user && context.user.email !== "maia@gmail.com" && (
-                <NavLink
-                  className="nav-link white-link"
-                  to="/contact"
-                  onClick={scrollToTop}
-                >
-                  Contact
-                </NavLink>
-              ))}
+
+            <NavLink
+              className="nav-link white-link"
+              to="/contact"
+              onClick={scrollToTop}
+            >
+              Contact
+            </NavLink>
           </Nav>
           <Nav className="ml-auto">
             {context.loggedUser ? (
