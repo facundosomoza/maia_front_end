@@ -7,6 +7,7 @@ import logoFacebook from "../assets/images/facebook_logo.png";
 import logoTiktok from "../assets/images/tiktok_logo.png";
 
 import { appContext } from "../contexts/appContext";
+import { scrollToTop } from "../utils/common";
 
 const Footer = () => {
   const context = useContext(appContext);
@@ -49,6 +50,7 @@ const Footer = () => {
               className="terms-shipping"
               to="/terms-privacy"
               onClick={() => {
+                scrollToTop();
                 context.handleCheckFooter("terms-privacy");
               }}
               style={{
@@ -69,6 +71,7 @@ const Footer = () => {
               className="terms-shipping"
               to="/shipping-returns"
               onClick={() => {
+                scrollToTop();
                 context.handleCheckFooter("shipping-returns");
               }}
               style={{

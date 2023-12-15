@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
+import { scrollToTop } from "../utils/common";
 
 const CookieBanner = () => {
   const [acceptedCookies, setAcceptedCookies] = useState(
@@ -26,7 +27,9 @@ const CookieBanner = () => {
         limited functionality in certain areas of the website.
       </p>
       <p>
-        <Link to="/terms-privacy">Terms of Service</Link>
+        <Link to="/terms-privacy" onClick={scrollToTop}>
+          Terms of Service
+        </Link>
       </p>
       <div>
         <button onClick={handleAcceptCookies}>Accept Cookies</button>

@@ -141,7 +141,7 @@ const Details = () => {
                   </Col>
                 </Row>
 
-                {context.user && context.user.email !== "maia@gmail.com" ? (
+                {context.user && context.user.email === "maia@gmail.com" ? (
                   <></>
                 ) : context.user && pictureSelected ? (
                   <>
