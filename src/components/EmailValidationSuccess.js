@@ -11,7 +11,7 @@ const EmailValidationSuccess = () => {
       <Row className="d-flex align-items-center justify-content-center mt-4">
         <Col xs={10} md={9} className="text-center">
           <h1 className="font-weight-bold text-dark">
-            You email has been confirmed successfully!
+            Your email has been confirmed successfully!
           </h1>
           <Link
             className="button-style-second d-inline-block my-3"
